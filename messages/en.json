@@ -1,0 +1,18 @@
+{
+  "brand": {
+    "name": "DEZARTI",
+    "tagline": "Luxury Beyond Fragrance",
+    "subline": "Crafted for Moments That Last Forever"
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Collections",
+    "men": "Men",
+    "women": "Women",
+    "unisex": "Unisex",
+    "new": "New Arrivals",
+    "air": "Air Fragrances",
+    "about": "About",
+    "contact": "Contact"
+  }
+}
