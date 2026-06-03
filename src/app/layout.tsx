@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
+import { Amiri, Bodoni_Moda, Cormorant_Garamond, Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -24,6 +24,12 @@ const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
+});
+
+const amiri = Amiri({
+  variable: "--font-amiri",
+  subsets: ["arabic"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="ar" suppressHydrationWarning>
       <body
-        className={`${cormorant.variable} ${playfair.variable} ${bodoni.variable} ${inter.variable} antialiased`}
+        className={`${cormorant.variable} ${playfair.variable} ${bodoni.variable} ${inter.variable} ${amiri.variable} antialiased`}
       >
         {children}
       </body>

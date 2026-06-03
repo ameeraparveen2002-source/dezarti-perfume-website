@@ -29,10 +29,10 @@ type ContactFormValues = {
 };
 
 const fadeUp = {
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 12 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-90px" },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  viewport: { once: true, margin: "-80px" },
+  transition: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as const },
 } as const;
 
 export function LuxuryHome({ locale }: PageProps) {
@@ -47,6 +47,7 @@ export function LuxuryHome({ locale }: PageProps) {
         <HomeProductSection key={section.id} locale={locale} index={index} {...section} />
       ))}
       <CollectionTabsSection locale={locale} />
+      <AcAmbientSection locale={locale} />
       {remainingSections.map((section, index) => (
         <HomeProductSection key={section.id} locale={locale} index={index + featuredSections.length + 1} {...section} />
       ))}
@@ -105,7 +106,7 @@ export function ProductDetail({ locale, product }: PageProps & { product: Produc
     <LuxuryShell locale={locale}>
       <section className="relative bg-[#faf6f0] px-6 pb-16 pt-28 md:px-12 md:pb-24 md:pt-32">
         <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.9fr_1.1fr]">
-        <motion.div {...fadeUp} className="relative min-h-[320px] overflow-hidden rounded-[1.25rem] border border-[#b58a54]/15 bg-[#fffdf9] md:min-h-[480px]">
+        <motion.div {...fadeUp} className="relative min-h-[320px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] md:min-h-[480px] luxury-image-frame">
           <Image src={product.image} alt={display.name} fill priority className="object-cover" />
         </motion.div>
         <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col justify-center">
@@ -211,7 +212,7 @@ export function ContactPage({ locale }: PageProps) {
             <p>{dictionary.contact.whatsappLabel}: +971 50 000 0000</p>
             <p>{dictionary.contact.location}</p>
           </div>
-          <div className="mt-12 h-64 rounded-[1.25rem] border border-[#b58a54]/15 bg-[#efe5d9] p-6">
+          <div className="mt-12 h-64 rounded-[3px] border border-[#b58a54]/15 bg-[#efe5d9] p-6">
             <p className="text-xs tracking-[0.22em] text-gold">{dictionary.contact.locationLabel}</p>
             <p className="mt-24 max-w-xs text-sm leading-[1.8] text-[#6f655c]">{dictionary.contact.mapText}</p>
           </div>
@@ -248,6 +249,7 @@ function LuxuryShell({ children, locale, splash = false }: React.PropsWithChildr
 
   return (
     <>
+      <div className="luxury-bg-vignette" />
       <SmoothScroll />
       <AnimatePresence>{showSplash && <SplashIntro />}</AnimatePresence>
       <Header locale={locale} />
@@ -259,7 +261,7 @@ function LuxuryShell({ children, locale, splash = false }: React.PropsWithChildr
 
 function SmoothScroll() {
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 0.9 });
+    const lenis = new Lenis({ lerp: 0.06, wheelMultiplier: 0.8, infinite: false });
     let frame = 0;
 
     function raf(time: number) {
@@ -405,7 +407,7 @@ function Hero({ locale }: PageProps) {
               fill
               priority
               sizes="(min-width: 768px) 42vw, 100vw"
-              className="object-cover transition duration-700 hover:scale-[1.025]"
+              className="object-cover transition duration-1000 ease-out hover:scale-[1.012]"
             />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1f1a17]/18 via-transparent to-transparent" />
         </motion.div>
@@ -428,7 +430,7 @@ function AboutPreview({ locale }: PageProps) {
 
   return (
     <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-10 px-6 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-24">
-      <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[1.25rem] border border-[#b58a54]/15 md:min-h-[390px]">
+      <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 md:min-h-[390px] luxury-image-frame">
         <Image
           src="/campaign/dezarti-miss-grasse.png"
           alt={dictionary.about.title}
@@ -468,7 +470,7 @@ const collectionTabLinks: Record<CollectionTab, string> = {
 function CollectionTabsSection({ locale }: PageProps) {
   const [activeTab, setActiveTab] = useState<CollectionTab>("women");
   const dictionary = getDictionary(locale);
-  const tabs: CollectionTab[] = ["women", "men", "unisex", "air"];
+  const tabs: CollectionTab[] = ["women", "men", "unisex"];
   const items = products.filter((product) => product.category === activeTab).slice(0, 4);
 
   return (
@@ -520,6 +522,44 @@ function CollectionTabsSection({ locale }: PageProps) {
       <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
         <MagneticLink href={withLocale(locale, collectionTabLinks[activeTab])} variant="ghost">
           {dictionary.collectionsSection.viewFull[activeTab]}
+        </MagneticLink>
+      </div>
+    </section>
+  );
+}
+
+function AcAmbientSection({ locale }: PageProps) {
+  const dictionary = getDictionary(locale);
+  const items = products.filter((product) => product.category === "air").slice(0, 4);
+
+  const title = locale === "ar" ? "عطور التكييف والجو" : "AC & Ambient Fragrances";
+  const subtitle = locale === "ar"
+    ? "عطور فاخرة مصممة للمنازل، المكاتب، الفنادق، الصالات، وأنظمة التكييف والمساحات الراقية."
+    : "Luxury fragrances designed for homes, offices, hotels, lounges, air conditioning systems, and premium environments.";
+
+  const viewFullText = locale === "ar" ? "عرض المجموعة الكاملة" : "View Full Collection";
+
+  return (
+    <section id="ac-ambient" className="scroll-mt-24 bg-[#faf6f0] px-6 py-16 md:px-12 md:py-24">
+      <motion.div {...fadeUp} className="mx-auto max-w-[1100px] text-center">
+        <p className="luxury-eyebrow">{dictionary.collectionsSection.tabs.air || "AC & Ambient"}</p>
+        <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
+          {title}
+        </h2>
+        <p className="mx-auto mt-5 max-w-2xl text-sm leading-[1.75] text-[#6f655c]">
+          {subtitle}
+        </p>
+      </motion.div>
+
+      <div className="mx-auto mt-10 grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        {items.map((product) => (
+          <ProductCard key={`ac-ambient-${product.slug}`} locale={locale} product={product} />
+        ))}
+      </div>
+
+      <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
+        <MagneticLink href={withLocale(locale, "/collections/ac-ambient")} variant="ghost">
+          {viewFullText}
         </MagneticLink>
       </div>
     </section>
@@ -596,11 +636,11 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
   const imageHeight = compact ? "h-40 sm:h-48 md:h-56" : "h-52 md:h-64 xl:h-72";
 
   return (
-    <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[1.25rem]">
+    <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[3px]">
       <Link href={withLocale(locale, `/product/${product.slug}`)} className="block">
-        <div className={`relative overflow-hidden bg-[#f4ede4] ${imageHeight}`}>
-          <Image src={product.image} alt={display.name} fill sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw" className="object-cover transition duration-500 group-hover:scale-[1.035]" />
-          {display.badge && <span className="absolute left-4 top-4 rounded-full border border-[#b58a54]/25 bg-[#fffdf9]/90 px-3 py-1.5 text-[0.62rem] tracking-[0.12em] text-[#b58a54]">{display.badge}</span>}
+        <div className={`relative overflow-hidden bg-[#f4ede4] rounded-t-[3px] luxury-image-frame ${imageHeight}`}>
+          <Image src={product.image} alt={display.name} fill sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw" className="object-cover transition duration-700 ease-out group-hover:scale-[1.015]" />
+          {display.badge && <span className="absolute left-4 top-4 rounded-[3px] border border-[#b58a54]/25 bg-[#fffdf9]/90 px-3 py-1.5 text-[0.62rem] tracking-[0.12em] text-[#b58a54]">{display.badge}</span>}
         </div>
         <div className={compact ? "p-4 md:p-5" : "p-5 md:p-6"}>
           <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">{display.collection}</p>
@@ -608,13 +648,13 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
           {!compact && <p className="mt-3 text-sm leading-7 text-charcoal/55">{display.mood}</p>}
           <div className="mt-5 flex items-center justify-between gap-3 text-sm text-charcoal/70">
             <span>{display.price}</span>
-            <span className="rounded-full border border-[#b58a54]/20 px-3 py-1.5 text-[0.68rem] tracking-[0.08em] transition duration-300 group-hover:border-[#b58a54] group-hover:text-[#b58a54]">
+            <span className="rounded-[3px] border border-[#b58a54]/20 px-3 py-1.5 text-[0.68rem] tracking-[0.08em] transition duration-500 ease-out group-hover:border-[#b58a54] group-hover:text-[#b58a54]">
               {dictionary.product.details}
             </span>
           </div>
         </div>
       </Link>
-      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-full border border-[#b58a54]/20 py-2.5 text-center text-[0.68rem] tracking-[0.1em] text-charcoal/70 transition duration-300 hover:border-gold hover:text-gold md:mx-5 md:mb-5">
+      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2.5 text-center text-[0.68rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5">
         {dictionary.product.inquire}
       </a>
     </motion.article>
@@ -724,11 +764,11 @@ function EditorialHero({ eyebrow, title, copy }: { eyebrow: string; title: strin
 
 function NoteGroup({ title, notes }: { title: string; notes: string[] }) {
   return (
-    <div className="rounded-[1rem] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
+    <div className="rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
       <h3 className="font-display text-xl text-[#1f1a17]">{title}</h3>
       <div className="mt-5 grid gap-3">
         {notes.map((note) => (
-          <div key={note} className="flex items-center gap-3 rounded-full border border-[#b58a54]/15 bg-[#faf6f0] px-4 py-3">
+          <div key={note} className="flex items-center gap-3 rounded-[3px] border border-[#b58a54]/15 bg-[#faf6f0] px-4 py-3">
             <span className="grid h-7 w-7 place-items-center rounded-full border border-gold/35 text-xs text-gold">✦</span>
             <span className="text-sm text-[#6f655c]">{note}</span>
           </div>
