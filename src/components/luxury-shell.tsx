@@ -104,7 +104,7 @@ export function ProductDetail({ locale, product }: PageProps & { product: Produc
 
   return (
     <LuxuryShell locale={locale}>
-      <section className="relative bg-[#faf6f0] px-6 pb-16 pt-28 md:px-12 md:pb-24 md:pt-32">
+      <section className="relative bg-[#faf6f0] px-6 pb-12 pt-24 md:px-12 md:pb-16 md:pt-28">
         <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.9fr_1.1fr]">
         <motion.div {...fadeUp} className="relative min-h-[320px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] md:min-h-[480px] luxury-image-frame">
           <Image src={product.image} alt={display.name} fill priority className="object-cover" />
@@ -159,7 +159,7 @@ export function AboutPage({ locale }: PageProps) {
         title={dictionary.about.pageTitle}
         copy={dictionary.about.pageText}
       />
-      <section className="mx-auto grid max-w-[1100px] gap-8 px-6 py-24 md:grid-cols-3 md:px-12 md:py-32">
+      <section className="mx-auto grid max-w-[1100px] gap-8 px-6 py-16 md:grid-cols-3 md:px-12 md:py-20">
         {dictionary.about.pillars.map((pillar, index) => (
           <motion.article key={pillar.title} {...fadeUp} transition={{ ...fadeUp.transition, delay: index * 0.08 }} className="border-t border-[#b58a54]/20 pt-8">
             <p className="luxury-eyebrow">0{index + 1}</p>
@@ -204,11 +204,16 @@ export function ContactPage({ locale }: PageProps) {
         title={dictionary.contact.title}
         copy={dictionary.contact.text}
       />
-      <section className="mx-auto grid max-w-[1100px] gap-12 px-6 pb-24 md:grid-cols-[0.78fr_1.22fr] md:px-12 md:pb-36">
+      <section className="mx-auto grid max-w-[1100px] gap-10 px-6 pb-16 md:grid-cols-[0.78fr_1.22fr] md:px-12 md:pb-20">
         <div className="border-t border-[#b58a54]/20 pt-8">
           <p className="luxury-eyebrow">{dictionary.contact.service}</p>
           <div className="mt-10 space-y-6 text-sm leading-[1.8] text-[#6f655c]">
-            <p>{dictionary.contact.emailLabel}: concierge@dezarti.com</p>
+            <p>
+              {dictionary.contact.emailLabel}:{" "}
+              <a href={`mailto:${dictionary.contact.emailAddress}`} className="transition hover:text-[#1f1a17]">
+                {dictionary.contact.emailAddress}
+              </a>
+            </p>
             <p>{dictionary.contact.whatsappLabel}: +971 50 000 0000</p>
             <p>{dictionary.contact.location}</p>
           </div>
@@ -429,7 +434,7 @@ function AboutPreview({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-10 px-6 py-16 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-24">
+    <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-8 px-6 py-10 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-14">
       <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 md:min-h-[390px] luxury-image-frame">
         <Image
           src="/campaign/dezarti-miss-grasse.png"
@@ -458,13 +463,12 @@ function AboutPreview({ locale }: PageProps) {
   );
 }
 
-type CollectionTab = "women" | "men" | "unisex" | "air";
+type CollectionTab = "women" | "men" | "unisex";
 
 const collectionTabLinks: Record<CollectionTab, string> = {
   women: "/collections/women",
   men: "/collections/men",
   unisex: "/collections/unisex",
-  air: "/collections/ac-ambient",
 };
 
 function CollectionTabsSection({ locale }: PageProps) {
@@ -474,7 +478,7 @@ function CollectionTabsSection({ locale }: PageProps) {
   const items = products.filter((product) => product.category === activeTab).slice(0, 4);
 
   return (
-    <section id="collections" className="scroll-mt-24 bg-[#f4ede4] px-6 py-16 md:px-12 md:py-24">
+    <section id="collections" className="scroll-mt-24 bg-[#f4ede4] px-6 pb-12 pt-8 md:px-12 md:pb-14 md:pt-10">
       <motion.div {...fadeUp} className="mx-auto max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{dictionary.collectionsSection.eyebrow}</p>
         <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
@@ -485,7 +489,7 @@ function CollectionTabsSection({ locale }: PageProps) {
         </p>
       </motion.div>
 
-      <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
+      <div className="mx-auto mt-7 flex max-w-[1100px] justify-center">
         <div className="flex rounded-full border border-[#b58a54]/20 bg-[#fffdf9] p-1">
           {tabs.map((tab) => (
             <button
@@ -511,7 +515,7 @@ function CollectionTabsSection({ locale }: PageProps) {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-10 grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          className="mx-auto mt-8 grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
         >
           {items.map((product) => (
             <ProductCard key={`${activeTab}-${product.slug}`} locale={locale} product={product} />
@@ -519,7 +523,7 @@ function CollectionTabsSection({ locale }: PageProps) {
         </motion.div>
       </AnimatePresence>
 
-      <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
+      <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
         <MagneticLink href={withLocale(locale, collectionTabLinks[activeTab])} variant="ghost">
           {dictionary.collectionsSection.viewFull[activeTab]}
         </MagneticLink>
@@ -532,34 +536,27 @@ function AcAmbientSection({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
   const items = products.filter((product) => product.category === "air").slice(0, 4);
 
-  const title = locale === "ar" ? "عطور التكييف والجو" : "AC & Ambient Fragrances";
-  const subtitle = locale === "ar"
-    ? "عطور فاخرة مصممة للمنازل، المكاتب، الفنادق، الصالات، وأنظمة التكييف والمساحات الراقية."
-    : "Luxury fragrances designed for homes, offices, hotels, lounges, air conditioning systems, and premium environments.";
-
-  const viewFullText = locale === "ar" ? "عرض المجموعة الكاملة" : "View Full Collection";
-
   return (
-    <section id="ac-ambient" className="scroll-mt-24 bg-[#faf6f0] px-6 py-16 md:px-12 md:py-24">
+    <section id="ac-ambient" className="scroll-mt-24 bg-[#faf6f0] px-6 py-10 md:px-12 md:py-14">
       <motion.div {...fadeUp} className="mx-auto max-w-[1100px] text-center">
-        <p className="luxury-eyebrow">{dictionary.collectionsSection.tabs.air || "AC & Ambient"}</p>
+        <p className="luxury-eyebrow">{dictionary.acAmbientSection.eyebrow}</p>
         <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
-          {title}
+          {dictionary.acAmbientSection.title}
         </h2>
         <p className="mx-auto mt-5 max-w-2xl text-sm leading-[1.75] text-[#6f655c]">
-          {subtitle}
+          {dictionary.acAmbientSection.description}
         </p>
       </motion.div>
 
-      <div className="mx-auto mt-10 grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      <div className="mx-auto mt-8 grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {items.map((product) => (
           <ProductCard key={`ac-ambient-${product.slug}`} locale={locale} product={product} />
         ))}
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
+      <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
         <MagneticLink href={withLocale(locale, "/collections/ac-ambient")} variant="ghost">
-          {viewFullText}
+          {dictionary.acAmbientSection.viewFull}
         </MagneticLink>
       </div>
     </section>
@@ -586,17 +583,19 @@ function HomeProductSection({
 }) {
   const dictionary = getDictionary(locale);
   const sectionTone = index % 2 === 0 ? "bg-[#faf6f0]" : "bg-[#f4ede4]";
+  const sectionSpacing =
+    id === "best-sellers"
+      ? "px-6 pb-6 pt-10 md:px-12 md:pb-8 md:pt-14"
+      : "px-6 py-10 md:px-12 md:py-14";
 
   return (
-    <section id={id} className={`${sectionTone} scroll-mt-24 px-6 py-16 md:px-12 md:py-24`}>
-      <motion.div {...fadeUp} className="mx-auto mb-10 flex max-w-[1100px] flex-col gap-5 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl">
-          <p className="luxury-eyebrow">{eyebrow}</p>
-          <h2 className="mt-3 font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
-            {title}
-          </h2>
-        </div>
-        <p className="max-w-sm text-sm leading-[1.75] text-[#6f655c]">{description}</p>
+    <section id={id} className={`${sectionTone} scroll-mt-24 ${sectionSpacing}`}>
+      <motion.div {...fadeUp} className="mx-auto mb-8 max-w-[760px] text-center md:mb-9">
+        <p className="luxury-eyebrow">{eyebrow}</p>
+        <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
+          {title}
+        </h2>
+        <p className="mx-auto mt-4 max-w-xl text-sm leading-[1.75] text-[#6f655c]">{description}</p>
       </motion.div>
 
       <div className="mx-auto grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
@@ -605,7 +604,7 @@ function HomeProductSection({
         ))}
       </div>
 
-      <div className="mx-auto mt-8 flex max-w-[1100px] justify-center">
+      <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
         <MagneticLink href={withLocale(locale, href)} variant="ghost">
           {dictionary.product.viewCollection}
         </MagneticLink>
@@ -616,7 +615,7 @@ function HomeProductSection({
 
 function ProductShowcase({ locale, eyebrow, title, items }: PageProps & { eyebrow: string; title: string; items: Product[] }) {
   return (
-    <section className="px-6 py-16 md:px-12 md:py-24">
+    <section className="px-6 py-12 md:px-12 md:py-16">
       <motion.div {...fadeUp} className="mx-auto mb-10 max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{eyebrow}</p>
         <h2 className="mx-auto mt-4 max-w-3xl font-display text-3xl font-light leading-[1.25] text-charcoal md:text-5xl">{title}</h2>
@@ -665,7 +664,7 @@ function GlobalStatement({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <section className="grid place-items-center bg-[#efe5d9] px-6 py-24 text-center md:py-36">
+    <section className="grid place-items-center bg-[#efe5d9] px-6 py-16 text-center md:py-20">
       <motion.div {...fadeUp}>
         <p className="luxury-eyebrow">{dictionary.globalStatement.eyebrow}</p>
         <h2 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-light leading-[1.14] text-[#1f1a17] md:text-6xl">
@@ -699,7 +698,7 @@ function HomeContactSection({ locale }: PageProps) {
   }
 
   return (
-    <section id="contact" className="scroll-mt-24 bg-[#faf6f0] px-6 py-16 md:px-12 md:py-24">
+    <section id="contact" className="scroll-mt-24 bg-[#faf6f0] px-6 py-10 md:px-12 md:py-14">
       <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.85fr_1.15fr]">
         <motion.div {...fadeUp} className="border-t border-[#b58a54]/20 pt-8">
           <p className="luxury-eyebrow">{dictionary.contact.homeEyebrow}</p>
@@ -715,9 +714,9 @@ function HomeContactSection({ locale }: PageProps) {
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.whatsappLabel}</span>
               +971 50 000 0000
             </a>
-            <a href="mailto:concierge@dezarti.com" className="border-t border-[#b58a54]/15 pt-4 transition hover:text-[#1f1a17]">
+            <a href={`mailto:${dictionary.contact.emailAddress}`} className="border-t border-[#b58a54]/15 pt-4 transition hover:text-[#1f1a17]">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.emailLabel}</span>
-              concierge@dezarti.com
+              {dictionary.contact.emailAddress}
             </a>
             <div className="border-t border-[#b58a54]/15 pt-4">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.phoneLabel}</span>
@@ -751,7 +750,7 @@ function HomeContactSection({ locale }: PageProps) {
 
 function EditorialHero({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return (
-    <section className="relative overflow-hidden px-6 pb-20 pt-32 md:px-12 md:pb-28 md:pt-40">
+    <section className="relative overflow-hidden px-6 pb-14 pt-28 md:px-12 md:pb-18 md:pt-32">
       <CinematicBackdrop />
       <motion.div {...fadeUp} className="relative z-10 mx-auto max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{eyebrow}</p>
@@ -823,13 +822,21 @@ function Footer({ locale }: PageProps) {
   const localizedNavItems = Object.entries(dictionary.nav.byPath).map(([href, label]) => ({ href, label }));
 
   return (
-    <footer className="border-t border-[#b58a54]/15 bg-[#f4ede4] px-6 py-16 md:px-12 md:py-24">
-      <div className="mx-auto flex max-w-[1100px] flex-col justify-between gap-12 md:flex-row md:items-end">
+    <footer className="border-t border-[#b58a54]/15 bg-[#f4ede4] px-6 py-12 md:px-12 md:py-16">
+      <div className="mx-auto flex max-w-[1100px] flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
           <p className="font-serif text-3xl tracking-[0.28em] text-[#1f1a17]">DEZARTI</p>
           <p className="mt-5 max-w-md text-sm leading-[1.8] text-[#6f655c]">
             {dictionary.brand.footerText}
           </p>
+          <div className="mt-5 space-y-2 text-sm text-[#6f655c]">
+            <p>
+              {dictionary.contact.locationLabel}: {dictionary.contact.location}
+            </p>
+            <a href={`mailto:${dictionary.contact.emailAddress}`} className="block transition hover:text-[#1f1a17]">
+              {dictionary.contact.emailLabel}: {dictionary.contact.emailAddress}
+            </a>
+          </div>
         </div>
         <div className="flex flex-wrap gap-6 text-[0.68rem] uppercase tracking-[0.16em] text-[#6f655c]">
           {localizedNavItems.slice(1, 6).map((item) => (

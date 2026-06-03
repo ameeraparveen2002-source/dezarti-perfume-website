@@ -108,7 +108,7 @@ export const translations = {
     brand: {
       name: "DEZARTI",
       tagline: "Luxury Beyond Fragrance",
-      footerText: "Luxury beyond fragrance. Perfumes, spatial rituals, and sensory identity composed with care.",
+      footerText: "Dezarati Perfume is a luxury fragrance brand based in Qatar, offering premium perfumes and ambient fragrances crafted for elegance, sophistication, and long-lasting impressions.",
     },
     nav: {
       byPath: {
@@ -161,23 +161,27 @@ export const translations = {
         women: "Women",
         men: "Men",
         unisex: "Unisex",
-        air: "AC & Ambient",
       },
       viewFull: {
         women: "View Women's Collection",
         men: "View Men's Collection",
         unisex: "View Unisex Collection",
-        air: "View AC & Ambient Collection",
       },
     },
+    acAmbientSection: {
+      eyebrow: "AC & Ambient",
+      title: "AC & Ambient Fragrances",
+      description: "Luxury fragrances designed for homes, offices, hotels, lounges, air conditioning systems, and premium environments.",
+      viewFull: "View Full Collection",
+    },
     about: {
-      eyebrow: "About the House",
-      title: "A house for lasting sensory identity.",
-      text: "DEZARTI blends fragrance craft, editorial calm, and modern luxury storytelling for skin, spaces, and unforgettable moments.",
+      eyebrow: "About Us",
+      title: "Luxury fragrances from Qatar, crafted for lasting impressions.",
+      text: "Dezarati Perfume is a luxury fragrance brand based in Qatar, offering premium perfumes and ambient fragrances crafted to deliver elegance, sophistication, and long-lasting impressions. Our collection is designed for individuals who appreciate quality, refinement, and timeless scents that enhance everyday experiences.",
       cta: "Learn More",
-      pageEyebrow: "The House of DEZARTI",
-      pageTitle: "A perfume house shaped by calm, ritual, and rare materials.",
-      pageText: "DEZARTI exists to transform scent into memory. Every composition is designed with architectural clarity, selected ingredients, and a contemporary global sensibility.",
+      pageEyebrow: "About Dezarati Perfume",
+      pageTitle: "A Qatar-based luxury fragrance house shaped by elegance and refinement.",
+      pageText: "Dezarati Perfume is a luxury fragrance brand based in Qatar, offering premium perfumes and ambient fragrances crafted to deliver elegance, sophistication, and long-lasting impressions. Our collection is designed for individuals who appreciate quality, refinement, and timeless scents that enhance everyday experiences.",
       pillars: [
         {
           title: "Mission",
@@ -201,12 +205,13 @@ export const translations = {
       homeTitle: "A private consultation for scent and space.",
       homeText: "Contact DEZARTI for personal fragrance inquiries, wholesale requests, and ambient scenting.",
       service: "DEZARTI Private Service",
+      emailAddress: "dezaratiperfume@gmail.com",
       emailLabel: "Email",
       whatsappLabel: "WhatsApp",
       phoneLabel: "Phone",
       locationLabel: "Location",
-      location: "Dubai, United Arab Emirates",
-      mapText: "Reserved space for a Google Map of the DEZARTI showroom or office.",
+      location: "Qatar",
+      mapText: "Location: Qatar",
       businessHoursLabel: "Business Hours",
       businessHours: "Daily, 10 AM - 8 PM",
       form: {
@@ -271,7 +276,7 @@ export const translations = {
       baseNotes: "Base Notes",
       newBadge: "New Arrival",
       viewCollection: "View Collection",
-      priceCurrency: "AED",
+      priceCurrency: "QAR",
       projectionAmbient: "Ambient",
       projectionClear: "Clear and polished",
       projectionSoft: "Soft and close",
@@ -293,7 +298,7 @@ export const translations = {
     brand: {
       name: "DEZARTI",
       tagline: "فخامة تتجاوز العطر",
-      footerText: "فخامة تتجاوز العطر. عطور، طقوس للمساحات، وهوية حسية مصاغة بعناية.",
+      footerText: "دزاراتي للعطور علامة عطرية فاخرة مقرها قطر، تقدم عطوراً راقية وروائح للمساحات مصممة للأناقة والرقي والانطباعات طويلة الأثر.",
     },
     nav: {
       byPath: {
@@ -346,23 +351,27 @@ export const translations = {
         women: "النساء",
         men: "الرجال",
         unisex: "للجنسين",
-        air: "التكييف والجو",
       },
       viewFull: {
         women: "عرض مجموعة النساء",
         men: "عرض مجموعة الرجال",
         unisex: "عرض مجموعة للجنسين",
-        air: "عرض مجموعة التكييف والجو",
       },
+    },
+    acAmbientSection: {
+      eyebrow: "التكييف والجو",
+      title: "عطور التكييف والجو",
+      description: "عطور فاخرة مصممة للمنازل، المكاتب، الفنادق، الصالات، وأنظمة التكييف والمساحات الراقية.",
+      viewFull: "عرض المجموعة الكاملة",
     },
     about: {
       eyebrow: "من نحن",
-      title: "دار لصناعة هوية حسية تبقى.",
-      text: "تجمع DEZARTI بين الحرفة العطرية، الهدوء التحريري، وسردية الفخامة الحديثة لصناعة عطور للبشرة والمساحات واللحظات التي لا تُنسى.",
+      title: "عطور فاخرة من قطر، مصممة لانطباعات تدوم.",
+      text: "دزاراتي للعطور علامة عطرية فاخرة مقرها قطر، تقدم عطوراً راقية وروائح للمساحات مصممة لتمنح الأناقة والرقي والانطباعات طويلة الأثر. صُممت مجموعتنا للأشخاص الذين يقدّرون الجودة والتهذيب والروائح الخالدة التي ترتقي بالتجارب اليومية.",
       cta: "تعرّف أكثر",
-      pageEyebrow: "دار DEZARTI",
-      pageTitle: "دار عطور تتشكل من الهدوء والطقس والخامات النادرة.",
-      pageText: "توجد DEZARTI لتحويل الرائحة إلى ذاكرة. كل تركيبة تُصمم بوضوح معماري ومكونات مختارة وحس عالمي معاصر.",
+      pageEyebrow: "عن دزاراتي للعطور",
+      pageTitle: "دار عطور فاخرة مقرها قطر، مصاغة بالأناقة والتهذيب.",
+      pageText: "دزاراتي للعطور علامة عطرية فاخرة مقرها قطر، تقدم عطوراً راقية وروائح للمساحات مصممة لتمنح الأناقة والرقي والانطباعات طويلة الأثر. صُممت مجموعتنا للأشخاص الذين يقدّرون الجودة والتهذيب والروائح الخالدة التي ترتقي بالتجارب اليومية.",
       pillars: [
         {
           title: "الرسالة",
@@ -386,12 +395,13 @@ export const translations = {
       homeTitle: "استشارة خاصة لعطرك ومساحتك.",
       homeText: "تواصل مع فريق DEZARTI للاستفسارات الشخصية، طلبات الجملة، وتعطير المساحات.",
       service: "خدمة DEZARTI الخاصة",
+      emailAddress: "dezaratiperfume@gmail.com",
       emailLabel: "البريد",
       whatsappLabel: "واتساب",
       phoneLabel: "الهاتف",
       locationLabel: "الموقع",
-      location: "دبي، الإمارات العربية المتحدة",
-      mapText: "مساحة مخصصة لخريطة Google لمعرض أو مكتب DEZARTI.",
+      location: "قطر",
+      mapText: "الموقع: قطر",
       businessHoursLabel: "ساعات العمل",
       businessHours: "يومياً، 10 صباحاً - 8 مساءً",
       form: {
@@ -456,7 +466,7 @@ export const translations = {
       baseNotes: "قاعدة العطر",
       newBadge: "إصدار جديد",
       viewCollection: "عرض المجموعة",
-      priceCurrency: "درهم",
+      priceCurrency: "QAR",
       projectionAmbient: "محيطي",
       projectionClear: "واضح ومصقول",
       projectionSoft: "ناعم وقريب",
@@ -514,14 +524,14 @@ export function getProductDisplay(locale: string, product: Product) {
   const activeLocale = getLocale(locale);
   const dictionary = getDictionary(activeLocale);
   const index = productIndex(product);
-  const priceNumber = product.price.match(/\d+/)?.[0] ?? "";
+  const price = product.category === "air" ? "50 QAR" : "150 QAR";
 
   if (activeLocale === "ar") {
     return {
       name: product.name,
       collection: categoryNameMap[product.category].ar,
       mood: product.mood,
-      price: `${priceNumber} ${dictionary.product.priceCurrency}`,
+      price,
       badge: product.badge ? dictionary.product.newBadge : undefined,
       family: product.family,
       story: product.story,
@@ -550,7 +560,7 @@ export function getProductDisplay(locale: string, product: Product) {
     name: `${names[index % names.length]} ${number}`,
     collection: categoryNameMap[product.category].en,
     mood: meta.mood,
-    price: `${dictionary.product.priceCurrency} ${priceNumber}`,
+    price,
     badge: product.badge ? dictionary.product.newBadge : undefined,
     family: meta.family,
     story: meta.story,

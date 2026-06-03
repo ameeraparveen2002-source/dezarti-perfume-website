@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   const smtpHost = process.env.SMTP_HOST;
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
-  const mailTo = process.env.CONTACT_TO ?? "concierge@dezarti.com";
+  const mailTo = process.env.CONTACT_TO ?? "dezaratiperfume@gmail.com";
 
   if (!smtpHost || !smtpUser || !smtpPass) {
     return NextResponse.json({

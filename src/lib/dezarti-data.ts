@@ -155,7 +155,7 @@ function createCollection(category: Product["category"], count: number): Product
       category,
       collection: meta.collection,
       mood: meta.mood,
-      price: `${category === "air" ? 240 + (index % 4) * 20 : 520 + (index % 8) * 35} درهم`,
+      price: category === "air" ? "50 QAR" : "150 QAR",
       image: images[index % images.length],
       badge: index < 3 ? "إصدار جديد" : undefined,
       notes: meta.notes,
