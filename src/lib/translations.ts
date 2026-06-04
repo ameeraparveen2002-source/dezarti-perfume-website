@@ -23,88 +23,9 @@ const categoryNameMap = {
   },
 } as const;
 
-const englishProductNames: Record<Product["category"], string[]> = {
-  men: [
-    "Red Tobacco", "Noir Imperial", "Oud Obscur", "Saffron Wood", "Leather Noble",
-    "Amber Night", "Cigar Blanc", "Vetiver Royal", "Tobacco Dark", "Musk Forge",
-    "Cafe Noir", "Ebony Wood", "Cedar Strict", "Labdanum 26", "Atlas Oud",
-    "Ember Smoke", "Night Baron", "Black Iris", "Tonka Rich", "Ombre Mineral",
-    "Royal Trail", "Dark Suede", "Accord 19", "Amber Crown", "Oud Reserve",
-  ],
-  women: [
-    "Mahajad", "Velvet Rose", "Blanc Minuit", "Rose Couture", "Jasmine Pearl",
-    "Orris Silk", "Vanilla Noir", "Musk Lumiere", "Peach Fleur", "Luna Rose",
-    "Tuberose Blanc", "Soleil Fleur", "Rose du Soir", "Cashmere Bloom", "Pearl 03",
-    "Ivoire Musk", "Narcisse Veil", "Dahlia Rouge", "Fleur Amber", "Sandal Rose",
-    "Mirage Blanc", "Violet Dore", "Magnolia Silk", "Rosa Alte", "Aurora Veil",
-  ],
-  unisex: [
-    "Nally", "Amber Serene", "Oud Lumiere", "Amber Ritual", "The Noir",
-    "Labdanum Silk", "Salt Wood", "Incense Blanc", "Patchouli Veil", "Amber Cashmere",
-    "Rose and Smoke", "Neroli Mineral", "Tonka Sky", "Oud Therapy", "Cardamom Noir",
-    "Iris Santal", "Musk Opal", "Frankincense 12", "Amber Fig", "Suede Blanc",
-    "Serene Wood", "Rose Cardamom", "Vetiver Skin", "Oud Aura", "Blanc Odyssey",
-    "Cafe Amber", "Sandal Minuet", "Eclipse Musk",
-  ],
-  air: ["Cielo Air", "Hotel Blanc", "Linen Cold", "Amber Space", "White Tea"],
-};
-
-const englishProductMeta: Record<Product["category"], {
-  family: string;
-  mood: string;
-  story: string;
-  usageRecommendation: string;
-  notes: Product["notes"];
-}> = {
-  men: {
-    family: "Woody Tobacco",
-    mood: "Red tobacco, dark woods, warm leather, and deep presence",
-    story: "A polished masculine signature balancing warm tobacco, quiet woods, and a refined leather trail.",
-    usageRecommendation: "Ideal for evening wear, private meetings, and moments that call for lasting presence.",
-    notes: {
-      top: ["Coffee", "Almond", "Bergamot"],
-      heart: ["Red Tobacco", "Cinnamon", "Cedar"],
-      base: ["Vanilla", "Cacao", "Sandalwood"],
-    },
-  },
-  women: {
-    family: "Velvet Floral",
-    mood: "Dark rose, pearl, red velvet, and evening elegance",
-    story: "A rich feminine composition moving between rose, jasmine, creamy musk, and quiet theatrical softness.",
-    usageRecommendation: "Suited to refined evenings, special occasions, and moments that need a soft unforgettable trace.",
-    notes: {
-      top: ["Bergamot", "White Peach", "Pear"],
-      heart: ["Sambac Jasmine", "Tuberose", "Rose"],
-      base: ["Vanilla", "Tonka", "Sandalwood"],
-    },
-  },
-  unisex: {
-    family: "Amber Leather",
-    mood: "Amber, soft leather, dark rose, and elegant tension",
-    story: "A fragrance beyond classification, blending amber warmth with soft leather and deep woods.",
-    usageRecommendation: "For luxurious daily wear, travel, and evenings that need a personal signature beyond rules.",
-    notes: {
-      top: ["Cardamom", "Pink Pepper", "Bergamot"],
-      heart: ["Rose", "Black Tea", "Frankincense"],
-      base: ["Amber", "Leather", "White Musk"],
-    },
-  },
-  air: {
-    family: "Fresh Aromatic",
-    mood: "Hotel air, cool linen, and polished calm",
-    story: "A luxury air fragrance created to transform interiors into calm, clean, and refined environments.",
-    usageRecommendation: "For homes, boutiques, salons, hotel suites, entrances, and spaces with a distinct identity.",
-    notes: {
-      top: ["Italian Lemon", "Aldehydes", "Mint Leaf"],
-      heart: ["White Tea", "Fig Leaf", "Iris"],
-      base: ["Clean Musk", "Cedar", "Soft Amber"],
-    },
-  },
-};
-
 export const translations = {
   en: {
-    languageNames: { ar: "AR", en: "EN" },
+    languageNames: { en: "English", ar: "العربية" },
     brand: {
       name: "DEZARTI",
       tagline: "Luxury Beyond Fragrance",
@@ -121,6 +42,12 @@ export const translations = {
         "/air-fragrances": "AC & Ambient",
         "/about": "About",
         "/contact": "Contact",
+      },
+      collectionsDropdown: {
+        women: "Women's Perfumes",
+        men: "Men's Perfumes",
+        unisex: "Unisex Perfumes",
+        air: "Air & Ambient Fragrances",
       },
       home: [
         { href: "/", label: "Home" },
@@ -206,12 +133,17 @@ export const translations = {
       homeText: "Contact DEZARTI for personal fragrance inquiries, wholesale requests, and ambient scenting.",
       service: "DEZARTI Private Service",
       emailAddress: "dezaratiperfume@gmail.com",
+      whatsappNumber: "97433667377",
+      whatsappDisplay: "+974 33667377",
       emailLabel: "Email",
       whatsappLabel: "WhatsApp",
       phoneLabel: "Phone",
       locationLabel: "Location",
-      location: "Qatar",
-      mapText: "Location: Qatar",
+      location: "Building Number 17, 41 Betteel Street, Doha, Qatar",
+      addressLines: ["Building Number 17", "41 Betteel Street", "Doha, Qatar"],
+      mapText: "Building Number 17, 41 Betteel Street, Doha, Qatar",
+      mapUrl: "https://maps.app.goo.gl/stRwxdLfWs5uyrqs5",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Building%20Number%2017%2C%2041%20Betteel%20Street%2C%20Doha%2C%20Qatar&output=embed",
       businessHoursLabel: "Business Hours",
       businessHours: "Daily, 10 AM - 8 PM",
       form: {
@@ -271,6 +203,10 @@ export const translations = {
       longevity: "Longevity",
       projection: "Projection",
       feeling: "Feeling",
+      price: "Price",
+      fragranceStory: "Fragrance Story",
+      ingredients: "Ingredients",
+      productDetails: "Product Details",
       topNotes: "Top Notes",
       heartNotes: "Heart Notes",
       baseNotes: "Base Notes",
@@ -294,7 +230,7 @@ export const translations = {
     },
   },
   ar: {
-    languageNames: { ar: "ع", en: "EN" },
+    languageNames: { en: "English", ar: "العربية" },
     brand: {
       name: "DEZARTI",
       tagline: "فخامة تتجاوز العطر",
@@ -311,6 +247,12 @@ export const translations = {
         "/air-fragrances": "التكييف والجو",
         "/about": "من نحن",
         "/contact": "تواصل",
+      },
+      collectionsDropdown: {
+        women: "عطور النساء",
+        men: "عطور الرجال",
+        unisex: "عطور للجنسين",
+        air: "عطور التكييف والجو",
       },
       home: [
         { href: "/", label: "الرئيسية" },
@@ -396,12 +338,17 @@ export const translations = {
       homeText: "تواصل مع فريق DEZARTI للاستفسارات الشخصية، طلبات الجملة، وتعطير المساحات.",
       service: "خدمة DEZARTI الخاصة",
       emailAddress: "dezaratiperfume@gmail.com",
+      whatsappNumber: "97433667377",
+      whatsappDisplay: "+974 33667377",
       emailLabel: "البريد",
       whatsappLabel: "واتساب",
       phoneLabel: "الهاتف",
       locationLabel: "الموقع",
-      location: "قطر",
-      mapText: "الموقع: قطر",
+      location: "مبنى رقم 17، شارع بتيل 41، الدوحة، قطر",
+      addressLines: ["مبنى رقم 17", "شارع بتيل 41", "الدوحة، قطر"],
+      mapText: "مبنى رقم 17، شارع بتيل 41، الدوحة، قطر",
+      mapUrl: "https://maps.app.goo.gl/stRwxdLfWs5uyrqs5",
+      mapEmbedUrl: "https://maps.google.com/maps?q=Building%20Number%2017%2C%2041%20Betteel%20Street%2C%20Doha%2C%20Qatar&output=embed",
       businessHoursLabel: "ساعات العمل",
       businessHours: "يومياً، 10 صباحاً - 8 مساءً",
       form: {
@@ -461,6 +408,10 @@ export const translations = {
       longevity: "الثبات",
       projection: "الفوحان",
       feeling: "الإحساس",
+      price: "السعر",
+      fragranceStory: "قصة العطر",
+      ingredients: "المكونات",
+      productDetails: "تفاصيل المنتج",
       topNotes: "النوتات العليا",
       heartNotes: "قلب العطر",
       baseNotes: "قاعدة العطر",
@@ -493,10 +444,6 @@ export function getDictionary(locale: string) {
   return translations[getLocale(locale)];
 }
 
-function productIndex(product: Product) {
-  return Number(product.slug.split("-").at(-1) ?? "1") - 1;
-}
-
 export function getHomeProductSections(locale: string, products: Product[]) {
   const dictionary = getDictionary(locale);
   const sections = dictionary.homeSections as readonly {
@@ -520,60 +467,41 @@ export function getHomeProductSections(locale: string, products: Product[]) {
   });
 }
 
+function getLocalizedProductDetails(locale: SupportedLocale, product: Product) {
+  if (locale === "en") return product.productDetails;
+
+  if (product.category === "air") {
+    return ["معطر جو", "عطر للتكييف والجو", "للمنازل والمكاتب والفنادق والصالات وأنظمة التكييف", "50 QAR"];
+  }
+
+  return ["عطر فاخر", "عطر شخصي", "لطقوس عطرية شخصية", "150 QAR"];
+}
+
 export function getProductDisplay(locale: string, product: Product) {
   const activeLocale = getLocale(locale);
   const dictionary = getDictionary(activeLocale);
-  const index = productIndex(product);
   const price = product.category === "air" ? "50 QAR" : "150 QAR";
 
-  if (activeLocale === "ar") {
-    return {
-      name: product.name,
-      collection: categoryNameMap[product.category].ar,
-      mood: product.mood,
-      price,
-      badge: product.badge ? dictionary.product.newBadge : undefined,
-      family: product.family,
-      story: product.story,
-      usageRecommendation: product.usageRecommendation,
-      notes: product.notes,
-      longevity: product.longevity,
-      projection: product.projection,
-    };
-  }
-
-  const meta = englishProductMeta[product.category];
-  const names = englishProductNames[product.category];
-  const number = String(index + 1).padStart(2, "0");
-  const longevity =
-    product.category === "air"
-      ? dictionary.product.longevityAmbient
-      : `${8 + (index % 5)}-${10 + (index % 5)} ${dictionary.product.longevityHours}`;
-  const projection =
-    product.category === "air"
-      ? dictionary.product.projectionAmbient
-      : index % 2 === 0
-        ? dictionary.product.projectionClear
-        : dictionary.product.projectionSoft;
-
   return {
-    name: `${names[index % names.length]} ${number}`,
-    collection: categoryNameMap[product.category].en,
-    mood: meta.mood,
+    name: product.name,
+    collection: categoryNameMap[product.category][activeLocale],
+    mood: product.mood,
     price,
     badge: product.badge ? dictionary.product.newBadge : undefined,
-    family: meta.family,
-    story: meta.story,
-    usageRecommendation: meta.usageRecommendation,
-    notes: meta.notes,
-    longevity,
-    projection,
+    family: product.family,
+    story: product.story,
+    usageRecommendation: product.usageRecommendation,
+    notes: product.notes,
+    ingredients: product.ingredients,
+    productDetails: getLocalizedProductDetails(activeLocale, product),
+    longevity: product.category === "air" ? dictionary.product.longevityAmbient : product.longevity,
+    projection: product.category === "air" ? dictionary.product.projectionAmbient : product.projection,
   };
 }
 
 export function whatsappLink(locale: string, product?: Product) {
   const dictionary = getDictionary(locale);
-  const base = "https://wa.me/971500000000";
+  const base = `https://wa.me/${dictionary.contact.whatsappNumber}`;
   const text = product
     ? `${dictionary.whatsapp.productPrefix} ${getProductDisplay(locale, product).name} ${dictionary.whatsapp.productConnector} ${getProductDisplay(locale, product).collection}.`
     : dictionary.whatsapp.generic;

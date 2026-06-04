@@ -206,13 +206,13 @@ body, p, label, textarea, input, select, .footer-text, .spec-value, .note-text, 
   border-radius: 999px;
   color: #fffdf9;
   display: inline-flex;
-  font-size: 0.72rem;
+  font-size: 0.66rem;
   font-weight: 500;
   justify-content: center;
-  letter-spacing: 0.16em; /* Increased from 0.08em for high-fashion editorial style */
-  min-height: 2.85rem; /* Increased from 2.75rem for luxurious tactile feel */
+  letter-spacing: 0.14em;
+  min-height: 2.35rem;
   overflow: hidden;
-  padding: 0 1.65rem; /* Increased from 1.45rem */
+  padding: 0 1.25rem;
   position: relative;
   transition:
     background 400ms cubic-bezier(0.16, 1, 0.3, 1),
@@ -241,6 +241,21 @@ body, p, label, textarea, input, select, .footer-text, .spec-value, .note-text, 
   transform: translateY(-2px) !important;
 }
 
+.luxury-button-collection {
+  background: linear-gradient(135deg, #cba56b 0%, #b58a54 100%) !important;
+  border-color: rgba(181, 138, 84, 0.75) !important;
+  box-shadow: 0 10px 22px rgba(181, 138, 84, 0.16) !important;
+  color: #1f1a17 !important;
+}
+
+.luxury-button-collection:hover {
+  background: #1f1a17 !important;
+  border-color: #1f1a17 !important;
+  box-shadow: 0 12px 26px rgba(31, 26, 23, 0.16) !important;
+  color: #fffdf9 !important;
+  transform: translateY(-2px) !important;
+}
+
 .film-grain {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.28'/%3E%3C/svg%3E");
   inset: 0;
@@ -254,8 +269,23 @@ body, p, label, textarea, input, select, .footer-text, .spec-value, .note-text, 
 @media (max-width: 768px) {
   .luxury-button {
     letter-spacing: 0.1em !important;
-    min-height: 2.75rem !important;
-    padding: 0 1.45rem !important;
+    min-height: 2.3rem !important;
+    padding: 0 1.15rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

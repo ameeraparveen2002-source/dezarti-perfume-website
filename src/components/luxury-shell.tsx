@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Lenis from "lenis";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -34,6 +33,13 @@ const fadeUp = {
   viewport: { once: true, margin: "-80px" },
   transition: { duration: 0.8, ease: [0.215, 0.61, 0.355, 1] as const },
 } as const;
+
+const collectionDropdownLinks = [
+  { key: "women", href: "/collections/women" },
+  { key: "men", href: "/collections/men" },
+  { key: "unisex", href: "/collections/unisex" },
+  { key: "air", href: "/collections/ac-ambient" },
+] as const;
 
 export function LuxuryHome({ locale }: PageProps) {
   const sections = getHomeProductSections(locale, products);
@@ -101,32 +107,51 @@ export function CollectionPage({
 export function ProductDetail({ locale, product }: PageProps & { product: Product }) {
   const dictionary = getDictionary(locale);
   const display = getProductDisplay(locale, product);
+  const isUploadedBottleImage =
+    product.image.startsWith("/campaign/women/") ||
+    product.image.startsWith("/campaign/men/") ||
+    product.image.startsWith("/campaign/unisex/") ||
+    product.image.startsWith("/campaign/air/");
 
   return (
     <LuxuryShell locale={locale}>
       <section className="relative bg-[#faf6f0] px-6 pb-12 pt-24 md:px-12 md:pb-16 md:pt-28">
         <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.9fr_1.1fr]">
         <motion.div {...fadeUp} className="relative min-h-[320px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] md:min-h-[480px] luxury-image-frame">
-          <Image src={product.image} alt={display.name} fill priority className="object-cover" />
+          <Image
+            src={product.image}
+            alt={display.name}
+            fill
+            priority
+            sizes="(min-width: 768px) 45vw, 100vw"
+            className={isUploadedBottleImage ? "object-contain p-4 md:p-6" : "object-cover"}
+          />
         </motion.div>
         <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col justify-center">
           <p className="luxury-eyebrow">{display.collection}</p>
           <h1 className="mt-4 font-display text-4xl font-light leading-[1.08] text-[#1f1a17] md:text-6xl">{display.name}</h1>
-          <p className="text-xs tracking-[0.18em] text-gold">{display.family}</p>
-          <p className="mt-5 text-lg font-light leading-[1.65] text-[#6f655c] md:text-2xl">{display.story}</p>
-          <div className="mt-7 grid gap-5 sm:grid-cols-3">
-            <Spec label={dictionary.product.longevity} value={display.longevity} />
-            <Spec label={dictionary.product.projection} value={display.projection} />
-            <Spec label={dictionary.product.feeling} value={display.mood} />
+          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <p className="text-xs tracking-[0.18em] text-gold">{display.family}</p>
+            <p className="rounded-full border border-[#b58a54]/25 px-4 py-2 text-sm tracking-[0.16em] text-[#1f1a17]">
+              {dictionary.product.price}: {display.price}
+            </p>
           </div>
           <div className="mt-7 border-y border-[#b58a54]/15 py-5">
-            <p className="luxury-eyebrow">{dictionary.product.usage}</p>
-            <p className="mt-4 text-base leading-[1.8] text-[#6f655c]">{display.usageRecommendation}</p>
+            <p className="luxury-eyebrow">{dictionary.product.fragranceStory}</p>
+            <p className="mt-4 text-base leading-[1.8] text-[#6f655c] md:text-lg">{display.story}</p>
           </div>
           <div className="mt-7 grid gap-4 md:grid-cols-3">
             <NoteGroup title={dictionary.product.topNotes} notes={display.notes.top} />
             <NoteGroup title={dictionary.product.heartNotes} notes={display.notes.heart} />
             <NoteGroup title={dictionary.product.baseNotes} notes={display.notes.base} />
+          </div>
+          <div className="mt-7 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
+            <p className="luxury-eyebrow">{dictionary.product.ingredients}</p>
+            <IngredientList ingredients={display.ingredients} />
+          </div>
+          <div className="mt-7 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
+            <p className="luxury-eyebrow">{dictionary.product.productDetails}</p>
+            <IngredientList ingredients={display.productDetails} />
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
             <MagneticLink href={whatsappLink(locale, product)} external>
@@ -214,12 +239,35 @@ export function ContactPage({ locale }: PageProps) {
                 {dictionary.contact.emailAddress}
               </a>
             </p>
-            <p>{dictionary.contact.whatsappLabel}: +971 50 000 0000</p>
-            <p>{dictionary.contact.location}</p>
+            <p>
+              {dictionary.contact.whatsappLabel}:{" "}
+              <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="transition hover:text-[#1f1a17]">
+                {dictionary.contact.whatsappDisplay}
+              </a>
+            </p>
+            <div>
+              <p>{dictionary.contact.locationLabel}</p>
+              <div className="mt-2">
+                {dictionary.contact.addressLines.map((line) => (
+                  <p key={line}>{line}</p>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="mt-12 h-64 rounded-[3px] border border-[#b58a54]/15 bg-[#efe5d9] p-6">
-            <p className="text-xs tracking-[0.22em] text-gold">{dictionary.contact.locationLabel}</p>
-            <p className="mt-24 max-w-xs text-sm leading-[1.8] text-[#6f655c]">{dictionary.contact.mapText}</p>
+          <div className="mt-12 overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#efe5d9]">
+            <div className="p-5">
+              <p className="text-xs uppercase tracking-[0.22em] text-gold">{dictionary.contact.locationLabel}</p>
+              <a href={dictionary.contact.mapUrl} target="_blank" rel="noreferrer" className="mt-2 block text-sm leading-[1.8] text-[#6f655c] transition hover:text-[#1f1a17]">
+                {dictionary.contact.mapText}
+              </a>
+            </div>
+            <iframe
+              src={dictionary.contact.mapEmbedUrl}
+              title={dictionary.contact.locationLabel}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-64 w-full border-0 grayscale-[12%]"
+            />
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="grid gap-6 border-t border-[#b58a54]/20 pt-8">
@@ -266,18 +314,31 @@ function LuxuryShell({ children, locale, splash = false }: React.PropsWithChildr
 
 function SmoothScroll() {
   useEffect(() => {
-    const lenis = new Lenis({ lerp: 0.06, wheelMultiplier: 0.8, infinite: false });
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    if (prefersReducedMotion || isTouchDevice) return;
+
     let frame = 0;
+    let destroy: (() => void) | undefined;
+    let cancelled = false;
 
-    function raf(time: number) {
-      lenis.raf(time);
+    import("lenis").then(({ default: Lenis }) => {
+      if (cancelled) return;
+      const lenis = new Lenis({ lerp: 0.08, wheelMultiplier: 0.9, infinite: false });
+      destroy = () => lenis.destroy();
+
+      function raf(time: number) {
+        lenis.raf(time);
+        frame = requestAnimationFrame(raf);
+      }
+
       frame = requestAnimationFrame(raf);
-    }
+    });
 
-    frame = requestAnimationFrame(raf);
     return () => {
+      cancelled = true;
       cancelAnimationFrame(frame);
-      lenis.destroy();
+      destroy?.();
     };
   }, []);
 
@@ -323,19 +384,56 @@ function Header({ locale }: PageProps) {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#b58a54]/15 bg-[#f4ede4]/95">
       <div dir="ltr" className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-4 px-5 text-[#1f1a17] md:h-20 md:px-8">
-        <Link href={withLocale(locale, "/")} className="shrink-0 font-serif text-lg tracking-[0.28em] md:text-2xl">
+        <Link href={withLocale(locale, "/")} prefetch className="shrink-0 font-serif text-lg tracking-[0.28em] md:text-2xl">
           DEZARTI
         </Link>
         <nav dir={activeLocale === "ar" ? "rtl" : "ltr"} className="hidden items-center gap-5 text-[0.64rem] font-normal uppercase tracking-[0.13em] text-[#6f655c] xl:flex 2xl:gap-7">
-          {dictionary.nav.home.map((item) => (
-            <Link key={item.href} href={withLocale(locale, item.href)} className="transition duration-300 hover:text-[#1f1a17]">
-              {item.label}
-            </Link>
-          ))}
+          {dictionary.nav.home.map((item) =>
+            item.href === "/#collections" ? (
+              <div key={item.href} className="group relative py-7">
+                <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+                  {item.label}
+                </Link>
+                <div className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                  {collectionDropdownLinks.map((link) => (
+                    <Link
+                      key={link.key}
+                      href={withLocale(locale, link.href)}
+                      prefetch
+                      className="block rounded-[2px] px-4 py-3 text-[0.64rem] tracking-[0.13em] text-[#6f655c] transition duration-300 hover:bg-[#f4ede4] hover:text-[#1f1a17]"
+                    >
+                      {dictionary.nav.collectionsDropdown[link.key]}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link key={item.href} href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+                {item.label}
+              </Link>
+            ),
+          )}
         </nav>
         <div className="flex items-center gap-3">
+          <details className="group relative xl:hidden">
+            <summary className="list-none rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-3 py-2 text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17]">
+              {dictionary.nav.byPath["/collections"]}
+            </summary>
+            <div className="absolute right-0 top-[calc(100%+0.5rem)] w-64 border border-[#b58a54]/15 bg-[#fffdf9] p-2 shadow-[0_22px_55px_rgba(31,26,23,0.08)]">
+              {collectionDropdownLinks.map((link) => (
+                <Link
+                  key={link.key}
+                  href={withLocale(locale, link.href)}
+                  prefetch
+                  className="block rounded-[2px] px-4 py-3 text-[0.64rem] uppercase tracking-[0.13em] text-[#6f655c] transition duration-300 hover:bg-[#f4ede4] hover:text-[#1f1a17]"
+                >
+                  {dictionary.nav.collectionsDropdown[link.key]}
+                </Link>
+              ))}
+            </div>
+          </details>
           <LanguageSwitcher locale={activeLocale} />
-          <Link href={withLocale(locale, "/contact")} className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
+          <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
             {dictionary.contact.eyebrow}
           </Link>
         </div>
@@ -360,6 +458,7 @@ function LanguageSwitcher({ locale }: { locale: SupportedLocale }) {
         <Link
           key={option}
           href={switchHref(option)}
+          prefetch
           aria-current={locale === option ? "page" : undefined}
           className={`rounded-full px-3 py-2 transition duration-300 ${
             locale === option
@@ -437,7 +536,7 @@ function AboutPreview({ locale }: PageProps) {
     <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-8 px-6 py-10 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-14">
       <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 md:min-h-[390px] luxury-image-frame">
         <Image
-          src="/campaign/dezarti-miss-grasse.png"
+          src="/campaign/about/dezarti-about-libre.png"
           alt={dictionary.about.title}
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
@@ -524,7 +623,7 @@ function CollectionTabsSection({ locale }: PageProps) {
       </AnimatePresence>
 
       <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
-        <MagneticLink href={withLocale(locale, collectionTabLinks[activeTab])} variant="ghost">
+        <MagneticLink href={withLocale(locale, collectionTabLinks[activeTab])} variant="collection">
           {dictionary.collectionsSection.viewFull[activeTab]}
         </MagneticLink>
       </div>
@@ -555,7 +654,7 @@ function AcAmbientSection({ locale }: PageProps) {
       </div>
 
       <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
-        <MagneticLink href={withLocale(locale, "/collections/ac-ambient")} variant="ghost">
+        <MagneticLink href={withLocale(locale, "/collections/ac-ambient")} variant="collection">
           {dictionary.acAmbientSection.viewFull}
         </MagneticLink>
       </div>
@@ -605,7 +704,7 @@ function HomeProductSection({
       </div>
 
       <div className="mx-auto mt-6 flex max-w-[1100px] justify-center">
-        <MagneticLink href={withLocale(locale, href)} variant="ghost">
+        <MagneticLink href={withLocale(locale, href)} variant="collection">
           {dictionary.product.viewCollection}
         </MagneticLink>
       </div>
@@ -633,12 +732,25 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
   const dictionary = getDictionary(locale);
   const display = getProductDisplay(locale, product);
   const imageHeight = compact ? "h-40 sm:h-48 md:h-56" : "h-52 md:h-64 xl:h-72";
+  const isUploadedBottleImage =
+    product.image.startsWith("/campaign/women/") ||
+    product.image.startsWith("/campaign/men/") ||
+    product.image.startsWith("/campaign/unisex/") ||
+    product.image.startsWith("/campaign/air/");
 
   return (
     <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[3px]">
-      <Link href={withLocale(locale, `/product/${product.slug}`)} className="block">
-        <div className={`relative overflow-hidden bg-[#f4ede4] rounded-t-[3px] luxury-image-frame ${imageHeight}`}>
-          <Image src={product.image} alt={display.name} fill sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw" className="object-cover transition duration-700 ease-out group-hover:scale-[1.015]" />
+      <Link href={withLocale(locale, `/product/${product.slug}`)} prefetch className="block">
+        <div className={`relative overflow-hidden rounded-t-[3px] bg-[#fffdf9] luxury-image-frame ${imageHeight}`}>
+          <Image
+            src={product.image}
+            alt={display.name}
+            fill
+            loading="lazy"
+            quality={78}
+            sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
+            className={`${isUploadedBottleImage ? "object-contain p-3 md:p-4" : "object-cover"} transition duration-700 ease-out group-hover:scale-[1.015]`}
+          />
           {display.badge && <span className="absolute left-4 top-4 rounded-[3px] border border-[#b58a54]/25 bg-[#fffdf9]/90 px-3 py-1.5 text-[0.62rem] tracking-[0.12em] text-[#b58a54]">{display.badge}</span>}
         </div>
         <div className={compact ? "p-4 md:p-5" : "p-5 md:p-6"}>
@@ -653,7 +765,7 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
           </div>
         </div>
       </Link>
-      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2.5 text-center text-[0.68rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5">
+      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2 text-center text-[0.66rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5">
         {dictionary.product.inquire}
       </a>
     </motion.article>
@@ -712,20 +824,35 @@ function HomeContactSection({ locale }: PageProps) {
           <div className="mt-8 grid gap-4 text-sm leading-[1.8] text-[#6f655c] sm:grid-cols-2">
             <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="border-t border-[#b58a54]/15 pt-4 transition hover:text-[#1f1a17]">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.whatsappLabel}</span>
-              +971 50 000 0000
+              {dictionary.contact.whatsappDisplay}
             </a>
             <a href={`mailto:${dictionary.contact.emailAddress}`} className="border-t border-[#b58a54]/15 pt-4 transition hover:text-[#1f1a17]">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.emailLabel}</span>
               {dictionary.contact.emailAddress}
             </a>
-            <div className="border-t border-[#b58a54]/15 pt-4">
+            <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="border-t border-[#b58a54]/15 pt-4 transition hover:text-[#1f1a17]">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.phoneLabel}</span>
-              +971 50 000 0000
-            </div>
+              {dictionary.contact.whatsappDisplay}
+            </a>
             <div className="border-t border-[#b58a54]/15 pt-4">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.businessHoursLabel}</span>
               {dictionary.contact.businessHours}
             </div>
+          </div>
+          <div className="mt-8 overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#efe5d9]">
+            <div className="p-5">
+              <p className="text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.locationLabel}</p>
+              <a href={dictionary.contact.mapUrl} target="_blank" rel="noreferrer" className="mt-2 block text-sm leading-[1.8] text-[#6f655c] transition hover:text-[#1f1a17]">
+                {dictionary.contact.mapText}
+              </a>
+            </div>
+            <iframe
+              src={dictionary.contact.mapEmbedUrl}
+              title={dictionary.contact.locationLabel}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-56 w-full border-0 grayscale-[12%]"
+            />
           </div>
         </motion.div>
 
@@ -777,11 +904,17 @@ function NoteGroup({ title, notes }: { title: string; notes: string[] }) {
   );
 }
 
-function Spec({ label, value }: { label: string; value: string }) {
+function IngredientList({ ingredients }: { ingredients: string[] }) {
   return (
-    <div className="border-t border-[#b58a54]/20 pt-4">
-      <p className="text-xs tracking-[0.18em] text-gold">{label}</p>
-      <p className="mt-3 text-[#6f655c]">{value}</p>
+    <div className="mt-5 flex flex-wrap gap-2">
+      {ingredients.map((ingredient) => (
+        <span
+          key={ingredient}
+          className="rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-4 py-2 text-sm text-[#6f655c]"
+        >
+          {ingredient}
+        </span>
+      ))}
     </div>
   );
 }
@@ -791,8 +924,13 @@ function MagneticLink({
   children,
   variant = "solid",
   external = false,
-}: React.PropsWithChildren<{ href: string; variant?: "solid" | "ghost"; external?: boolean }>) {
-  const className = variant === "solid" ? "luxury-button" : "luxury-button luxury-button-ghost";
+}: React.PropsWithChildren<{ href: string; variant?: "solid" | "ghost" | "collection"; external?: boolean }>) {
+  const className =
+    variant === "solid"
+      ? "luxury-button"
+      : variant === "collection"
+        ? "luxury-button luxury-button-collection"
+        : "luxury-button luxury-button-ghost";
 
   if (external) {
     return (
@@ -803,7 +941,7 @@ function MagneticLink({
   }
 
   return (
-    <Link href={href} className={className}>
+    <Link href={href} prefetch className={className}>
       {children}
     </Link>
   );
@@ -830,11 +968,17 @@ function Footer({ locale }: PageProps) {
             {dictionary.brand.footerText}
           </p>
           <div className="mt-5 space-y-2 text-sm text-[#6f655c]">
-            <p>
-              {dictionary.contact.locationLabel}: {dictionary.contact.location}
-            </p>
+            <div>
+              <p>{dictionary.contact.locationLabel}:</p>
+              {dictionary.contact.addressLines.map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+            </div>
             <a href={`mailto:${dictionary.contact.emailAddress}`} className="block transition hover:text-[#1f1a17]">
               {dictionary.contact.emailLabel}: {dictionary.contact.emailAddress}
+            </a>
+            <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="block transition hover:text-[#1f1a17]">
+              {dictionary.contact.whatsappLabel}: {dictionary.contact.whatsappDisplay}
             </a>
           </div>
         </div>

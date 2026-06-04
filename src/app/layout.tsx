@@ -35,11 +35,11 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   metadataBase: new URL("https://dezarti.com"),
   title: {
-    default: "DEZARTI | فخامة تتجاوز العطر",
+    default: "DEZARTI | Luxury Beyond Fragrance",
     template: "%s | DEZARTI",
   },
   description:
-    "تجربة عربية فاخرة لدار عطور DEZARTI، تجمع العطور الراقية ومعطرات الجو والطقوس الحسية.",
+    "A luxury fragrance house from Qatar, offering premium perfumes and ambient fragrances for refined spaces and lasting impressions.",
   keywords: [
     "DEZARTI",
     "luxury perfume",
@@ -48,9 +48,9 @@ export const metadata: Metadata = {
     "air conditioner fragrance",
   ],
   openGraph: {
-    title: "DEZARTI | فخامة تتجاوز العطر",
+    title: "DEZARTI | Luxury Beyond Fragrance",
     description:
-      "تجربة عطرية سينمائية للعطور الراقية ومعطرات المساحات.",
+      "A luxury fragrance experience for premium perfumes and refined ambient scenting.",
     siteName: "DEZARTI",
     type: "website",
   },
@@ -62,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${cormorant.variable} ${playfair.variable} ${bodoni.variable} ${inter.variable} ${amiri.variable} antialiased`}
       >
