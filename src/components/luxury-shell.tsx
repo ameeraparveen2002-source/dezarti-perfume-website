@@ -115,9 +115,9 @@ export function ProductDetail({ locale, product }: PageProps & { product: Produc
 
   return (
     <LuxuryShell locale={locale}>
-      <section className="relative bg-[#faf6f0] px-6 pb-12 pt-24 md:px-12 md:pb-16 md:pt-28">
-        <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.9fr_1.1fr]">
-        <motion.div {...fadeUp} className="relative min-h-[320px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] md:min-h-[480px] luxury-image-frame">
+      <section className="relative bg-[#faf6f0] px-6 pb-8 pt-20 md:px-12 md:pb-12 md:pt-24">
+        <div className="mx-auto grid max-w-[1100px] gap-8 md:grid-cols-[0.8fr_1.2fr] lg:grid-cols-[0.7fr_1.3fr] items-start">
+        <motion.div {...fadeUp} className="relative h-[240px] sm:h-[300px] md:h-[360px] lg:h-[400px] w-full max-w-[400px] mx-auto md:mx-0 overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] luxury-image-frame shrink-0">
           <Image
             src={product.image}
             alt={display.name}
@@ -127,33 +127,33 @@ export function ProductDetail({ locale, product }: PageProps & { product: Produc
             className={isUploadedBottleImage ? "object-contain p-4 md:p-6" : "object-cover"}
           />
         </motion.div>
-        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col justify-center">
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col">
           <p className="luxury-eyebrow">{display.collection}</p>
-          <h1 className="mt-4 font-display text-4xl font-light leading-[1.08] text-[#1f1a17] md:text-6xl">{display.name}</h1>
-          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
+          <h1 className="mt-3 font-display text-4xl font-light leading-[1.08] text-[#1f1a17] md:text-6xl">{display.name}</h1>
+          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
             <p className="text-xs tracking-[0.18em] text-gold">{display.family}</p>
             <p className="rounded-full border border-[#b58a54]/25 px-4 py-2 text-sm tracking-[0.16em] text-[#1f1a17]">
               {dictionary.product.price}: {display.price}
             </p>
           </div>
-          <div className="mt-7 border-y border-[#b58a54]/15 py-5">
+          <div className="mt-5 border-y border-[#b58a54]/15 py-4">
             <p className="luxury-eyebrow">{dictionary.product.fragranceStory}</p>
-            <p className="mt-4 text-base leading-[1.8] text-[#6f655c] md:text-lg">{display.story}</p>
+            <p className="mt-3 text-base leading-[1.8] text-[#6f655c] md:text-lg">{display.story}</p>
           </div>
-          <div className="mt-7 grid gap-4 md:grid-cols-3">
+          <div className="mt-5 grid gap-3 md:grid-cols-3">
             <NoteGroup title={dictionary.product.topNotes} notes={display.notes.top} />
             <NoteGroup title={dictionary.product.heartNotes} notes={display.notes.heart} />
             <NoteGroup title={dictionary.product.baseNotes} notes={display.notes.base} />
           </div>
-          <div className="mt-7 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
+          <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
             <p className="luxury-eyebrow">{dictionary.product.ingredients}</p>
             <IngredientList ingredients={display.ingredients} />
           </div>
-          <div className="mt-7 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
+          <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
             <p className="luxury-eyebrow">{dictionary.product.productDetails}</p>
             <IngredientList ingredients={display.productDetails} />
           </div>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <MagneticLink href={whatsappLink(locale, product)} external>
               {dictionary.product.inquire}
             </MagneticLink>
@@ -394,7 +394,7 @@ function Header({ locale }: PageProps) {
                 <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
                   {item.label}
                 </Link>
-                <div className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
                   {collectionDropdownLinks.map((link) => (
                     <Link
                       key={link.key}
@@ -419,7 +419,7 @@ function Header({ locale }: PageProps) {
             <summary className="list-none rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-3 py-2 text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17]">
               {dictionary.nav.byPath["/collections"]}
             </summary>
-            <div className="absolute right-0 top-[calc(100%+0.5rem)] w-64 border border-[#b58a54]/15 bg-[#fffdf9] p-2 shadow-[0_22px_55px_rgba(31,26,23,0.08)]">
+            <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="absolute right-0 top-[calc(100%+0.5rem)] w-64 border border-[#b58a54]/15 bg-[#fffdf9] p-2 shadow-[0_22px_55px_rgba(31,26,23,0.08)]">
               {collectionDropdownLinks.map((link) => (
                 <Link
                   key={link.key}
@@ -739,9 +739,9 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
     product.image.startsWith("/campaign/air/");
 
   return (
-    <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[3px]">
-      <Link href={withLocale(locale, `/product/${product.slug}`)} prefetch className="block">
-        <div className={`relative overflow-hidden rounded-t-[3px] bg-[#fffdf9] luxury-image-frame ${imageHeight}`}>
+    <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[3px] flex flex-col h-full">
+      <Link href={withLocale(locale, `/product/${product.slug}`)} prefetch className="flex flex-col flex-1">
+        <div className={`relative overflow-hidden rounded-t-[3px] bg-[#fffdf9] luxury-image-frame ${imageHeight} shrink-0`}>
           <Image
             src={product.image}
             alt={display.name}
@@ -753,10 +753,12 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
           />
           {display.badge && <span className="absolute left-4 top-4 rounded-[3px] border border-[#b58a54]/25 bg-[#fffdf9]/90 px-3 py-1.5 text-[0.62rem] tracking-[0.12em] text-[#b58a54]">{display.badge}</span>}
         </div>
-        <div className={compact ? "p-4 md:p-5" : "p-5 md:p-6"}>
-          <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">{display.collection}</p>
-          <h3 className="mt-2 font-display text-lg text-charcoal md:text-xl">{display.name}</h3>
-          {!compact && <p className="mt-3 text-sm leading-7 text-charcoal/55">{display.mood}</p>}
+        <div className={`flex flex-col flex-1 justify-between ${compact ? "p-4 md:p-5" : "p-5 md:p-6"}`}>
+          <div>
+            <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">{display.collection}</p>
+            <h3 className="mt-2 font-display text-lg text-charcoal md:text-xl">{display.name}</h3>
+            {!compact && <p className="mt-3 text-sm leading-7 text-charcoal/55 line-clamp-2">{display.mood}</p>}
+          </div>
           <div className="mt-5 flex items-center justify-between gap-3 text-sm text-charcoal/70">
             <span>{display.price}</span>
             <span className="rounded-[3px] border border-[#b58a54]/20 px-3 py-1.5 text-[0.68rem] tracking-[0.08em] transition duration-500 ease-out group-hover:border-[#b58a54] group-hover:text-[#b58a54]">
@@ -765,7 +767,7 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
           </div>
         </div>
       </Link>
-      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2 text-center text-[0.66rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5">
+      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2 text-center text-[0.66rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5 shrink-0">
         {dictionary.product.inquire}
       </a>
     </motion.article>

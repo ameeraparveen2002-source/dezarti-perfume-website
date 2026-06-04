@@ -1,4 +1,10 @@
 import type { Product } from "@/lib/dezarti-data";
+import {
+  nameTranslations,
+  noteTranslations,
+  familyTranslations,
+  usageTranslations,
+} from "./note-translations";
 
 export type SupportedLocale = "ar" | "en";
 
@@ -467,6 +473,74 @@ export function getHomeProductSections(locale: string, products: Product[]) {
   });
 }
 
+function translateNote(note: string, locale: SupportedLocale): string {
+  const cleanNote = note.trim();
+  const trans = noteTranslations[cleanNote];
+  if (trans) {
+    return trans[locale];
+  }
+  return cleanNote;
+}
+
+function translateFamily(family: string, locale: SupportedLocale): string {
+  const cleanFamily = family.trim();
+  const trans = familyTranslations[cleanFamily];
+  if (trans) {
+    return trans[locale];
+  }
+  return cleanFamily;
+}
+
+function translateProductName(name: string, locale: SupportedLocale, fallbackArabic?: string): string {
+  const match = name.match(/^(.*?)\s*(\d+)$/);
+  const baseName = match ? match[1] : name;
+  const numSuffix = match ? ` ${match[2]}` : "";
+  
+  const cleanBase = baseName.trim();
+  const trans = nameTranslations[cleanBase];
+  if (trans) {
+    return `${trans[locale]}${numSuffix}`;
+  }
+  return locale === "ar" && fallbackArabic ? `${fallbackArabic.trim()}` : name;
+}
+
+function translateMood(mood: string, locale: SupportedLocale): string {
+  if (locale === "en") {
+    if (mood.includes("تبغ أحمر")) return "Red tobacco, dark woods, warm leather and deep presence";
+    if (mood.includes("ورد داكن")) return "Dark rose, pearl, red velvet and evening elegance";
+    if (mood.includes("عنبر، جلد ناعم")) return "Amber, soft leather, dark rose and elegant tension";
+    if (mood.includes("هواء فندقي")) return "Hotel air, cool linen, and polished calm";
+    return mood;
+  } else {
+    const parts = mood.split(",").map(p => p.trim());
+    const translatedParts = parts.map(p => translateNote(p, "ar"));
+    return translatedParts.join("، ");
+  }
+}
+
+function generateLocalizedStory(
+  locale: SupportedLocale,
+  category: Product["category"],
+  name: string,
+  notes: Product["notes"]
+): string {
+  const top = notes.top.slice(0, 3).map(n => translateNote(n, locale)).join(locale === "ar" ? "، " : ", ");
+  const heart = notes.heart.slice(0, 3).map(n => translateNote(n, locale)).join(locale === "ar" ? "، " : ", ");
+  const base = notes.base.slice(0, 3).map(n => translateNote(n, locale)).join(locale === "ar" ? "، " : ", ");
+
+  if (locale === "en") {
+    if (category === "air") {
+      return `${name} introduces the space with ${top}, softened by ${heart}. A composed base of ${base} gives the room a clean, polished atmosphere without heaviness.`;
+    }
+    return `${name} opens with ${top}, then moves into ${heart}. The dry down rests on ${base}, leaving a refined trail with quiet depth and polished elegance.`;
+  } else {
+    if (category === "air") {
+      return `يقدم عطر ${name} مساحتك بنوتات الـ ${top}، الملطفة بـ ${heart}. وتمنح قاعدة متسقة من ${base} الغرفة جواً نظيفاً ومصقولاً دون ثقل.`;
+    }
+    return `يبدأ عطر ${name} بنوتات الـ ${top}، ثم ينتقل إلى قلب عطر غني بـ ${heart}. ويستقر عند القاعدة على ${base}، تاركاً أثراً راقياً بعمق هادئ وأناقة مصقولة.`;
+  }
+}
+
 function getLocalizedProductDetails(locale: SupportedLocale, product: Product) {
   if (locale === "en") return product.productDetails;
 
@@ -482,20 +556,59 @@ export function getProductDisplay(locale: string, product: Product) {
   const dictionary = getDictionary(activeLocale);
   const price = product.category === "air" ? "50 QAR" : "150 QAR";
 
+  const translatedName = translateProductName(product.name, activeLocale, product.arabicName);
+  
+  // Translate notes
+  const translatedNotes = {
+    top: product.notes.top.map(n => translateNote(n, activeLocale)),
+    heart: product.notes.heart.map(n => translateNote(n, activeLocale)),
+    base: product.notes.base.map(n => translateNote(n, activeLocale)),
+  };
+
+  // Translate family & usage
+  const familyText = translateFamily(product.family, activeLocale);
+  const usageText = usageTranslations[product.usageRecommendation]
+    ? usageTranslations[product.usageRecommendation][activeLocale]
+    : product.usageRecommendation;
+
+  // Translate mood & story
+  const moodText = translateMood(product.mood, activeLocale);
+  const storyText = generateLocalizedStory(activeLocale, product.category, translatedName, product.notes);
+
+  // Translate longevity
+  let longevityText = "";
+  if (product.category === "air") {
+    longevityText = dictionary.product.longevityAmbient;
+  } else {
+    const match = product.longevity.match(/(\d+-\d+)/);
+    const range = match ? match[1] : "8-10";
+    longevityText = `${range} ${dictionary.product.longevityHours}`;
+  }
+
+  // Translate projection
+  let projectionText = "";
+  if (product.category === "air") {
+    projectionText = dictionary.product.projectionAmbient;
+  } else if (product.projection === "واضح ومصقول" || product.projection === "clear" || product.projection === "Clear and polished") {
+    projectionText = dictionary.product.projectionClear;
+  } else {
+    projectionText = dictionary.product.projectionSoft;
+  }
+
   return {
-    name: product.name,
+    name: translatedName,
     collection: categoryNameMap[product.category][activeLocale],
-    mood: product.mood,
+    mood: moodText,
     price,
     badge: product.badge ? dictionary.product.newBadge : undefined,
-    family: product.family,
-    story: product.story,
-    usageRecommendation: product.usageRecommendation,
-    notes: product.notes,
-    ingredients: product.ingredients,
+    family: familyText,
+    story: storyText,
+    usageRecommendation: usageText,
+    notes: translatedNotes,
+    ingredients: product.ingredients.map(i => translateNote(i, activeLocale)),
     productDetails: getLocalizedProductDetails(activeLocale, product),
-    longevity: product.category === "air" ? dictionary.product.longevityAmbient : product.longevity,
-    projection: product.category === "air" ? dictionary.product.projectionAmbient : product.projection,
+    longevity: longevityText,
+    projection: projectionText,
   };
 }
 
