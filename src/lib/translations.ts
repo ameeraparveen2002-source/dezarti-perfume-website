@@ -462,7 +462,9 @@ export function getHomeProductSections(locale: string, products: Product[]) {
 
   return sections.map((section) => {
     if (section.id === "new-arrivals") {
-      return { ...section, items: products.filter((product) => product.badge).slice(0, 4) };
+      const perfumes = products.filter((product) => product.category !== "air" && product.badge).slice(0, 4);
+      const airProducts = products.filter((product) => product.category === "air").slice(0, 2);
+      return { ...section, items: [...perfumes, ...airProducts] };
     }
 
     if (section.id === "best-sellers") {

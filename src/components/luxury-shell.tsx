@@ -43,23 +43,59 @@ const collectionDropdownLinks = [
 
 export function LuxuryHome({ locale }: PageProps) {
   const sections = getHomeProductSections(locale, products);
-  const featuredSections = sections.slice(0, 2);
-  const remainingSections = sections.slice(2);
+  const newArrivalsSection = sections.find((s) => s.id === "new-arrivals");
+  const bestSellersSection = sections.find((s) => s.id === "best-sellers");
+  const remainingSections = sections.filter((s) => s.id !== "new-arrivals" && s.id !== "best-sellers");
 
   return (
     <LuxuryShell locale={locale} splash>
       <Hero locale={locale} />
-      {featuredSections.map((section, index) => (
-        <HomeProductSection key={section.id} locale={locale} index={index} {...section} />
-      ))}
+      {newArrivalsSection && (
+        <HomeProductSection locale={locale} index={0} {...newArrivalsSection} />
+      )}
+
+      <AirFragranceCTA locale={locale} />
+
+      {bestSellersSection && (
+        <HomeProductSection locale={locale} index={1} {...bestSellersSection} />
+      )}
       <CollectionTabsSection locale={locale} />
       <AcAmbientSection locale={locale} />
       {remainingSections.map((section, index) => (
-        <HomeProductSection key={section.id} locale={locale} index={index + featuredSections.length + 1} {...section} />
+        <HomeProductSection key={section.id} locale={locale} index={index + 3} {...section} />
       ))}
       <AboutPreview locale={locale} />
       <HomeContactSection locale={locale} />
     </LuxuryShell>
+  );
+}
+
+function AirFragranceCTA({ locale }: PageProps) {
+  const activeLocale = getLocale(locale);
+  const title = activeLocale === "ar"
+    ? "اكتشف مجموعة عطور التكييف والجو الخاصة بنا"
+    : "Explore Our Air & Ambient Collection";
+  const buttonText = activeLocale === "ar"
+    ? "عرض المجموعة"
+    : "View Collection";
+
+  return (
+    <section className="relative overflow-hidden bg-[#efe5d9] px-6 py-12 md:px-12 md:py-16 text-center">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,253,249,0.15)_0%,rgba(181,138,84,0.05)_100%)]" />
+      <motion.div {...fadeUp} className="relative z-10 mx-auto max-w-[800px] flex flex-col items-center justify-center gap-6">
+        <p className="luxury-eyebrow">
+          {activeLocale === "ar" ? "طقوس المساحات" : "Spatial Rituals"}
+        </p>
+        <h2 className="font-display text-2xl font-light leading-[1.2] text-[#1f1a17] sm:text-3xl md:text-4xl max-w-xl">
+          {title}
+        </h2>
+        <div className="mt-2">
+          <MagneticLink href={withLocale(locale, "/collections/ac-ambient")} variant="collection">
+            {buttonText}
+          </MagneticLink>
+        </div>
+      </motion.div>
+    </section>
   );
 }
 
@@ -697,9 +733,15 @@ function HomeProductSection({
         <p className="mx-auto mt-4 max-w-xl text-sm leading-[1.75] text-[#6f655c]">{description}</p>
       </motion.div>
 
-      <div className="mx-auto grid max-w-[1100px] grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+      <div className={`mx-auto grid max-w-[1100px] grid-cols-2 gap-4 ${id === "new-arrivals" ? "md:grid-cols-3" : "md:grid-cols-4"} md:gap-6`}>
         {items.map((product) => (
-          <ProductCard key={`${id}-${product.slug}`} locale={locale} product={product} compact />
+          <ProductCard
+            key={`${id}-${product.slug}`}
+            locale={locale}
+            product={product}
+            compact
+            isFeaturedAir={id === "new-arrivals" && product.category === "air"}
+          />
         ))}
       </div>
 
@@ -728,7 +770,16 @@ function ProductShowcase({ locale, eyebrow, title, items }: PageProps & { eyebro
   );
 }
 
-function ProductCard({ locale, product, compact = false }: PageProps & { product: Product; compact?: boolean }) {
+function ProductCard({
+  locale,
+  product,
+  compact = false,
+  isFeaturedAir = false,
+}: PageProps & {
+  product: Product;
+  compact?: boolean;
+  isFeaturedAir?: boolean;
+}) {
   const dictionary = getDictionary(locale);
   const display = getProductDisplay(locale, product);
   const imageHeight = compact ? "h-40 sm:h-48 md:h-56" : "h-52 md:h-64 xl:h-72";
@@ -737,6 +788,15 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
     product.image.startsWith("/campaign/men/") ||
     product.image.startsWith("/campaign/unisex/") ||
     product.image.startsWith("/campaign/air/");
+
+  const isAir = product.category === "air";
+  const badgeText = isAir
+    ? (locale === "ar" ? "تكييف وجو" : "Air & Ambient")
+    : display.badge;
+
+  const badgeStyle = isAir
+    ? "border-[#cba56b]/35 bg-[#fffdf9]/95 text-[#cba56b] shadow-[0_2px_8px_rgba(203,165,107,0.08)]"
+    : "border-[#b58a54]/25 bg-[#fffdf9]/90 text-[#b58a54]";
 
   return (
     <motion.article {...fadeUp} className="group luxury-card overflow-hidden rounded-[3px] flex flex-col h-full">
@@ -751,11 +811,19 @@ function ProductCard({ locale, product, compact = false }: PageProps & { product
             sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             className={`${isUploadedBottleImage ? "object-contain p-3 md:p-4" : "object-cover"} transition duration-700 ease-out group-hover:scale-[1.015]`}
           />
-          {display.badge && <span className="absolute left-4 top-4 rounded-[3px] border border-[#b58a54]/25 bg-[#fffdf9]/90 px-3 py-1.5 text-[0.62rem] tracking-[0.12em] text-[#b58a54]">{display.badge}</span>}
+          {badgeText && (
+            <span className={`absolute left-4 top-4 rounded-[3px] border px-3 py-1.5 text-[0.62rem] tracking-[0.12em] ${badgeStyle}`}>
+              {badgeText}
+            </span>
+          )}
         </div>
         <div className={`flex flex-col flex-1 justify-between ${compact ? "p-4 md:p-5" : "p-5 md:p-6"}`}>
           <div>
-            <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">{display.collection}</p>
+            <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">
+              {isFeaturedAir
+                ? (locale === "ar" ? "تكييف وجو مميز" : "Air & Ambient Featured")
+                : display.collection}
+            </p>
             <h3 className="mt-2 font-display text-lg text-charcoal md:text-xl">{display.name}</h3>
             {!compact && <p className="mt-3 text-sm leading-7 text-charcoal/55 line-clamp-2">{display.mood}</p>}
           </div>
