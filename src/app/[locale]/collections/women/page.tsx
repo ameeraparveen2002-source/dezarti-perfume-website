@@ -1,17 +1,41 @@
+import { Metadata } from "next";
 import { CollectionPage } from "@/components/luxury-shell";
 import { getDictionary } from "@/lib/translations";
+import { getBaseMetadata, getStructuredData } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return getBaseMetadata(locale, "/collections/women");
+}
 
 export default async function CollectionWomenPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const copy = getDictionary(locale).collectionPages.women;
+  const jsonLd = getStructuredData(locale, "collection", {
+    name: copy.eyebrow,
+    path: "/collections/women",
+    description: copy.description,
+  });
 
   return (
-    <CollectionPage
-      locale={locale}
-      eyebrow={copy.eyebrow}
-      title={copy.title}
-      description={copy.description}
-      filter="women"
-    />
+    <>
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <CollectionPage
+        locale={locale}
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        description={copy.description}
+        filter="women"
+      />
+    </>
   );
 }

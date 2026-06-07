@@ -93,8 +93,20 @@ body::after {
 }
 
 a,
-button {
+button,
+[role="button"],
+summary {
   cursor: pointer;
+  touch-action: manipulation;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
 
 /* Ensure body paragraphs, descriptions, specs, and fields use Times New Roman */
@@ -276,8 +288,8 @@ body, p, label, textarea, input, select, .footer-text, .spec-value, .note-text, 
 @media (max-width: 768px) {
   .luxury-button {
     letter-spacing: 0.1em !important;
-    min-height: 2.3rem !important;
-    padding: 0 1.15rem !important;
+    min-height: 2.75rem !important; /* Touch target minimum of 44px */
+    padding: 0 1.25rem !important;
   }
 }
 
@@ -316,15 +328,15 @@ body, p, label, textarea, input, select, .footer-text, .spec-value, .note-text, 
   }
   /* Mobile padding spacing refinement */
   section {
-    padding-top: 4.5rem !important;
-    padding-bottom: 4.5rem !important;
+    padding-top: 2.25rem !important;
+    padding-bottom: 2.25rem !important;
   }
   /* Keep hero/about preview page layout spacing correct */
   .pt-24 {
-    padding-top: 6.5rem !important;
+    padding-top: 5rem !important;
   }
   .pt-28, .pt-32 {
-    padding-top: 7.5rem !important;
+    padding-top: 6rem !important;
   }
 }
 

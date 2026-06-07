@@ -80,7 +80,7 @@ function AirFragranceCTA({ locale }: PageProps) {
     : "View Collection";
 
   return (
-    <section className="relative overflow-hidden bg-[#efe5d9] px-6 py-12 md:px-12 md:py-16 text-center">
+    <section className="relative overflow-hidden bg-[#efe5d9] px-6 py-8 md:px-12 md:py-10 text-center">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,253,249,0.15)_0%,rgba(181,138,84,0.05)_100%)]" />
       <motion.div {...fadeUp} className="relative z-10 mx-auto max-w-[800px] flex flex-col items-center justify-center gap-6">
         <p className="luxury-eyebrow">
@@ -513,7 +513,7 @@ function Hero({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <section className="relative overflow-hidden bg-[#f4ede4] px-6 pb-12 pt-24 md:px-12 md:pb-20 md:pt-28">
+    <section className="relative overflow-hidden bg-[#f4ede4] px-6 pb-8 pt-20 md:px-12 md:pb-12 md:pt-24">
       <motion.div
         initial={{ opacity: 0, y: 45 }}
         animate={{ opacity: 1, y: 0 }}
@@ -569,7 +569,7 @@ function AboutPreview({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-8 px-6 py-10 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-14">
+    <section id="about" className="mx-auto grid max-w-[1100px] scroll-mt-24 gap-8 px-6 py-8 md:grid-cols-[0.95fr_1.05fr] md:px-12 md:py-10">
       <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 md:min-h-[390px] luxury-image-frame">
         <Image
           src="/campaign/about/dezarti-about-libre.png"
@@ -613,7 +613,7 @@ function CollectionTabsSection({ locale }: PageProps) {
   const items = products.filter((product) => product.category === activeTab).slice(0, 4);
 
   return (
-    <section id="collections" className="scroll-mt-24 bg-[#f4ede4] px-6 pb-12 pt-8 md:px-12 md:pb-14 md:pt-10">
+    <section id="collections" className="scroll-mt-24 bg-[#f4ede4] px-6 pb-8 pt-6 md:px-12 md:pb-10 md:pt-8">
       <motion.div {...fadeUp} className="mx-auto max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{dictionary.collectionsSection.eyebrow}</p>
         <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
@@ -672,7 +672,7 @@ function AcAmbientSection({ locale }: PageProps) {
   const items = products.filter((product) => product.category === "air").slice(0, 4);
 
   return (
-    <section id="ac-ambient" className="scroll-mt-24 bg-[#faf6f0] px-6 py-10 md:px-12 md:py-14">
+    <section id="ac-ambient" className="scroll-mt-24 bg-[#faf6f0] px-6 py-8 md:px-12 md:py-10">
       <motion.div {...fadeUp} className="mx-auto max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{dictionary.acAmbientSection.eyebrow}</p>
         <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-light leading-[1.16] text-charcoal md:text-5xl">
@@ -720,8 +720,8 @@ function HomeProductSection({
   const sectionTone = index % 2 === 0 ? "bg-[#faf6f0]" : "bg-[#f4ede4]";
   const sectionSpacing =
     id === "best-sellers"
-      ? "px-6 pb-6 pt-10 md:px-12 md:pb-8 md:pt-14"
-      : "px-6 py-10 md:px-12 md:py-14";
+      ? "px-6 pb-4 pt-8 md:px-12 md:pb-6 md:pt-10"
+      : "px-6 py-8 md:px-12 md:py-10";
 
   return (
     <section id={id} className={`${sectionTone} scroll-mt-24 ${sectionSpacing}`}>
@@ -756,7 +756,7 @@ function HomeProductSection({
 
 function ProductShowcase({ locale, eyebrow, title, items }: PageProps & { eyebrow: string; title: string; items: Product[] }) {
   return (
-    <section className="px-6 py-12 md:px-12 md:py-16">
+    <section className="px-6 py-8 md:px-12 md:py-10">
       <motion.div {...fadeUp} className="mx-auto mb-10 max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{eyebrow}</p>
         <h2 className="mx-auto mt-4 max-w-3xl font-display text-3xl font-light leading-[1.25] text-charcoal md:text-5xl">{title}</h2>
@@ -846,7 +846,7 @@ function GlobalStatement({ locale }: PageProps) {
   const dictionary = getDictionary(locale);
 
   return (
-    <section className="grid place-items-center bg-[#efe5d9] px-6 py-16 text-center md:py-20">
+    <section className="grid place-items-center bg-[#efe5d9] px-6 py-10 text-center md:py-12">
       <motion.div {...fadeUp}>
         <p className="luxury-eyebrow">{dictionary.globalStatement.eyebrow}</p>
         <h2 className="mx-auto mt-5 max-w-4xl font-display text-4xl font-light leading-[1.14] text-[#1f1a17] md:text-6xl">
@@ -880,7 +880,7 @@ function HomeContactSection({ locale }: PageProps) {
   }
 
   return (
-    <section id="contact" className="scroll-mt-24 bg-[#faf6f0] px-6 py-10 md:px-12 md:py-14">
+    <section id="contact" className="scroll-mt-24 bg-[#faf6f0] px-6 py-8 md:px-12 md:py-10">
       <div className="mx-auto grid max-w-[1100px] gap-10 md:grid-cols-[0.85fr_1.15fr]">
         <motion.div {...fadeUp} className="border-t border-[#b58a54]/20 pt-8">
           <p className="luxury-eyebrow">{dictionary.contact.homeEyebrow}</p>
@@ -947,7 +947,7 @@ function HomeContactSection({ locale }: PageProps) {
 
 function EditorialHero({ eyebrow, title, copy }: { eyebrow: string; title: string; copy: string }) {
   return (
-    <section className="relative overflow-hidden px-6 pb-14 pt-28 md:px-12 md:pb-18 md:pt-32">
+    <section className="relative overflow-hidden px-6 pb-10 pt-24 md:px-12 md:pb-12 md:pt-28">
       <CinematicBackdrop />
       <motion.div {...fadeUp} className="relative z-10 mx-auto max-w-[1100px] text-center">
         <p className="luxury-eyebrow">{eyebrow}</p>
@@ -1030,7 +1030,7 @@ function Footer({ locale }: PageProps) {
   const localizedNavItems = Object.entries(dictionary.nav.byPath).map(([href, label]) => ({ href, label }));
 
   return (
-    <footer className="border-t border-[#b58a54]/15 bg-[#f4ede4] px-6 py-12 md:px-12 md:py-16">
+    <footer className="border-t border-[#b58a54]/15 bg-[#f4ede4] px-6 py-8 md:px-12 md:py-10">
       <div className="mx-auto flex max-w-[1100px] flex-col justify-between gap-8 md:flex-row md:items-end">
         <div>
           <p className="font-serif text-3xl tracking-[0.28em] text-[#1f1a17]">DEZARTI</p>
