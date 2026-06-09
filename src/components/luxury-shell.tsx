@@ -968,8 +968,8 @@ function NoteGroup({ title, notes }: { title: string; notes: string[] }) {
     <div className="rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
       <h3 className="font-display text-xl text-[#1f1a17]">{title}</h3>
       <div className="mt-5 grid gap-3">
-        {notes.map((note) => (
-          <div key={note} className="flex items-center gap-3 rounded-[3px] border border-[#b58a54]/15 bg-[#faf6f0] px-4 py-3">
+        {notes.map((note, index) => (
+          <div key={`${note}-${index}`} className="flex items-center gap-3 rounded-[3px] border border-[#b58a54]/15 bg-[#faf6f0] px-4 py-3">
             <span className="grid h-7 w-7 place-items-center rounded-full border border-gold/35 text-xs text-gold">✦</span>
             <span className="text-sm text-[#6f655c]">{note}</span>
           </div>
@@ -982,9 +982,9 @@ function NoteGroup({ title, notes }: { title: string; notes: string[] }) {
 function IngredientList({ ingredients }: { ingredients: string[] }) {
   return (
     <div className="mt-5 flex flex-wrap gap-2">
-      {ingredients.map((ingredient) => (
+      {ingredients.map((ingredient, index) => (
         <span
-          key={ingredient}
+          key={`${ingredient}-${index}`}
           className="rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-4 py-2 text-sm text-[#6f655c]"
         >
           {ingredient}
