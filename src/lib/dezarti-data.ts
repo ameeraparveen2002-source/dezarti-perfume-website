@@ -9,6 +9,7 @@ export type Product = {
   mood: string;
   price: string;
   image: string;
+  fragranceImage?: string;
   badge?: string;
   notes: {
     top: string[];
@@ -208,6 +209,19 @@ const productNames: Record<Product["category"], string[]> = {
   air: ["HOME", "SENSUAL", "LIBRE", "ESCADA TAJ", "ORGANZA", "LAVENDER", "MUSK", "PARIS HILTON", "IRISH LEATHER", "FLORA"],
 };
 
+const airFragranceImages: Record<string, string> = {
+  "IRISH LEATHER": "/campaign/ingredient-air/dezarti-air-irish-leather.png",
+  HOME: "/campaign/ingredient-air/dezarti-air-home.png",
+  "ESCADA TAJ": "/campaign/ingredient-air/dezarti-air-escada-taj.png",
+  "PARIS HILTON": "/campaign/ingredient-air/dezarti-air-paris-hilton.png",
+  LAVENDER: "/campaign/ingredient-air/dezarti-air-lavender.png",
+  FLORA: "/campaign/ingredient-air/dezarti-air-flora.png",
+  MUSK: "/campaign/ingredient-air/dezarti-air-musk.png",
+  LIBRE: "/campaign/ingredient-air/dezarti-air-libre.png",
+  ORGANZA: "/campaign/ingredient-air/dezarti-air-organza.png",
+  SENSUAL: "/campaign/ingredient-air/dezarti-air-sensual.png",
+};
+
 type PerfumeProfile = {
   name: string;
   notes: Product["notes"];
@@ -357,6 +371,10 @@ function productNumberFor(category: Product["category"], index: number, image: s
   return imageNumber ? Number(imageNumber) : index + 1;
 }
 
+function perfumeFragranceImage(productNumber: number) {
+  return `/campaign/ingredient-perfume/dezarti-fragrance-${String(productNumber).padStart(2, "0")}.png`;
+}
+
 function uniqueIngredients(notes: Product["notes"]) {
   return Array.from(new Set([...notes.top, ...notes.heart, ...notes.base]));
 }
@@ -426,6 +444,7 @@ function createCollection(category: Product["category"], count: number): Product
       mood: profile ? fragranceMood(profile) : meta.mood,
       price: category === "air" ? "50 QAR" : "150 QAR",
       image,
+      fragranceImage: category === "air" ? airFragranceImages[name] : perfumeFragranceImage(profileNumber),
       badge: index < 3 ? "إصدار جديد" : undefined,
       notes,
       ingredients: uniqueIngredients(notes),

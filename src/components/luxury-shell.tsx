@@ -142,61 +142,62 @@ export function CollectionPage({
 export function ProductDetail({ locale, product }: PageProps & { product: Product }) {
   const dictionary = getDictionary(locale);
   const display = getProductDisplay(locale, product);
-  const isUploadedBottleImage =
-    product.image.startsWith("/campaign/women/") ||
-    product.image.startsWith("/campaign/men/") ||
-    product.image.startsWith("/campaign/unisex/") ||
-    product.image.startsWith("/campaign/air/");
+  const heroImage = product.fragranceImage ?? product.image;
 
   return (
     <LuxuryShell locale={locale}>
       <section className="relative bg-[#faf6f0] px-6 pb-8 pt-20 md:px-12 md:pb-12 md:pt-24">
-        <div className="mx-auto grid max-w-[1100px] gap-8 md:grid-cols-[0.8fr_1.2fr] lg:grid-cols-[0.7fr_1.3fr] items-start">
-        <motion.div {...fadeUp} className="relative h-[240px] sm:h-[300px] md:h-[360px] lg:h-[400px] w-full max-w-[400px] mx-auto md:mx-0 overflow-hidden rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] luxury-image-frame shrink-0">
-          <Image
-            src={product.image}
-            alt={display.name}
-            fill
-            priority
-            sizes="(min-width: 768px) 45vw, 100vw"
-            className={isUploadedBottleImage ? "object-contain p-4 md:p-6" : "object-cover"}
-          />
-        </motion.div>
-        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col">
-          <p className="luxury-eyebrow">{display.collection}</p>
-          <h1 className="mt-3 font-display text-4xl font-light leading-[1.08] text-[#1f1a17] md:text-6xl">{display.name}</h1>
-          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p className="text-xs tracking-[0.18em] text-gold">{display.family}</p>
-            <p className="rounded-full border border-[#b58a54]/25 px-4 py-2 text-sm tracking-[0.16em] text-[#1f1a17]">
-              {dictionary.product.price}: {display.price}
-            </p>
-          </div>
-          <div className="mt-5 border-y border-[#b58a54]/15 py-4">
-            <p className="luxury-eyebrow">{dictionary.product.fragranceStory}</p>
-            <p className="mt-3 text-base leading-[1.8] text-[#6f655c] md:text-lg">{display.story}</p>
-          </div>
-          <div className="mt-5 grid gap-3 md:grid-cols-3">
-            <NoteGroup title={dictionary.product.topNotes} notes={display.notes.top} />
-            <NoteGroup title={dictionary.product.heartNotes} notes={display.notes.heart} />
-            <NoteGroup title={dictionary.product.baseNotes} notes={display.notes.base} />
-          </div>
-          <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
-            <p className="luxury-eyebrow">{dictionary.product.ingredients}</p>
-            <IngredientList ingredients={display.ingredients} />
-          </div>
-          <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
-            <p className="luxury-eyebrow">{dictionary.product.productDetails}</p>
-            <IngredientList ingredients={display.productDetails} />
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <MagneticLink href={whatsappLink(locale, product)} external>
-              {dictionary.product.inquire}
-            </MagneticLink>
-            <MagneticLink href={withLocale(locale, "/collections")} variant="ghost">
-              {dictionary.product.related}
-            </MagneticLink>
-          </div>
-        </motion.div>
+        <div className="mx-auto grid max-w-[1600px] gap-8 md:grid-cols-[1fr_1fr] items-start">
+          <motion.div {...fadeUp} className="w-full max-w-[760px] mx-auto md:mx-0 shrink-0">
+            <div className="relative overflow-hidden rounded-[28px] border border-[#b58a54]/20 bg-[#fffdf9] p-3 shadow-[0_28px_80px_rgba(31,26,23,0.10)] luxury-image-frame">
+              <div className="pointer-events-none absolute inset-3 rounded-[22px] border border-[#b58a54]/20" />
+              <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[20px] bg-[#faf6f0]">
+                <Image
+                  src={heroImage}
+                  alt={display.name}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 720px, (min-width: 768px) 48vw, 100vw"
+                  className="object-contain p-2 sm:p-3"
+                />
+              </div>
+            </div>
+          </motion.div>
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.08 }} className="flex flex-col">
+            <p className="luxury-eyebrow">{display.collection}</p>
+            <h1 className="mt-3 font-display text-4xl font-light leading-[1.08] text-[#1f1a17] md:text-6xl">{display.name}</h1>
+            <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+              <p className="text-xs tracking-[0.18em] text-gold">{display.family}</p>
+              <p className="rounded-full border border-[#b58a54]/25 px-4 py-2 text-sm tracking-[0.16em] text-[#1f1a17]">
+                {dictionary.product.price}: {display.price}
+              </p>
+            </div>
+            <div className="mt-5 border-y border-[#b58a54]/15 py-4">
+              <p className="luxury-eyebrow">{dictionary.product.fragranceStory}</p>
+              <p className="mt-3 text-base leading-[1.8] text-[#6f655c] md:text-lg">{display.story}</p>
+            </div>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              <NoteGroup title={dictionary.product.topNotes} notes={display.notes.top} />
+              <NoteGroup title={dictionary.product.heartNotes} notes={display.notes.heart} />
+              <NoteGroup title={dictionary.product.baseNotes} notes={display.notes.base} />
+            </div>
+            <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
+              <p className="luxury-eyebrow">{dictionary.product.ingredients}</p>
+              <IngredientList ingredients={display.ingredients} />
+            </div>
+            <div className="mt-5 rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-4">
+              <p className="luxury-eyebrow">{dictionary.product.productDetails}</p>
+              <IngredientList ingredients={display.productDetails} />
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <MagneticLink href={whatsappLink(locale, product)} external>
+                {dictionary.product.inquire}
+              </MagneticLink>
+              <MagneticLink href={withLocale(locale, "/collections")} variant="ghost">
+                {dictionary.product.related}
+              </MagneticLink>
+            </div>
+          </motion.div>
         </div>
       </section>
       <ProductShowcase
@@ -502,11 +503,10 @@ function LanguageSwitcher({ locale }: { locale: SupportedLocale }) {
           href={switchHref(option)}
           prefetch
           aria-current={locale === option ? "page" : undefined}
-          className={`rounded-full px-2 py-1.5 sm:px-3 sm:py-2 transition duration-300 ${
-            locale === option
-              ? "bg-[#1f1a17] text-[#fffdf9]"
-              : "text-[#6f655c] hover:text-[#1f1a17]"
-          }`}
+          className={`rounded-full px-2 py-1.5 sm:px-3 sm:py-2 transition duration-300 ${locale === option
+            ? "bg-[#1f1a17] text-[#fffdf9]"
+            : "text-[#6f655c] hover:text-[#1f1a17]"
+            }`}
         >
           {dictionary.languageNames[option]}
         </Link>
@@ -547,14 +547,14 @@ function Hero({ locale }: PageProps) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
         >
-            <Image
-              src="/campaign/dezarti-good-girl.png"
-              alt="DEZARTI campaign"
-              fill
-              priority
-              sizes="(min-width: 768px) 42vw, 100vw"
-              className="object-cover transition duration-1000 ease-out hover:scale-[1.012]"
-            />
+          <Image
+            src="/campaign/dezarti-good-girl.png"
+            alt="DEZARTI campaign"
+            fill
+            priority
+            sizes="(min-width: 768px) 42vw, 100vw"
+            className="object-cover transition duration-1000 ease-out hover:scale-[1.012]"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1f1a17]/18 via-transparent to-transparent" />
         </motion.div>
       </motion.div>
@@ -637,11 +637,10 @@ function CollectionTabsSection({ locale }: PageProps) {
               key={tab}
               type="button"
               onClick={() => setActiveTab(tab)}
-              className={`rounded-full px-5 py-2.5 text-[0.68rem] uppercase tracking-[0.16em] transition duration-300 md:px-7 ${
-                activeTab === tab
-                  ? "bg-[#1f1a17] text-[#fffdf9]"
-                  : "text-[#6f655c] hover:text-[#1f1a17]"
-              }`}
+              className={`rounded-full px-5 py-2.5 text-[0.68rem] uppercase tracking-[0.16em] transition duration-300 md:px-7 ${activeTab === tab
+                ? "bg-[#1f1a17] text-[#fffdf9]"
+                : "text-[#6f655c] hover:text-[#1f1a17]"
+                }`}
             >
               {dictionary.collectionsSection.tabs[tab]}
             </button>
