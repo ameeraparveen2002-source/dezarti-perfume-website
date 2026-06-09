@@ -434,7 +434,7 @@ function createCollection(category: Product["category"], count: number): Product
       projection: category === "air" ? "محيطي" : index % 2 === 0 ? "واضح ومصقول" : "ناعم وقريب",
       usageRecommendation: meta.usageRecommendation,
       productDetails: category === "air"
-        ? ["Air Freshener", "AC & Ambient Fragrance", "For homes, offices, hotels, lounges, and air conditioning systems", "50 QAR"]
+        ? ["Air Freshener", "Air Freshener", "For homes, offices, hotels, lounges, and air conditioning systems", "50 QAR"]
         : ["Eau de Parfum", "Luxury perfume", "For personal fragrance rituals", "150 QAR"],
       story: profile ? (category === "air" ? airFragranceStory(profile) : fragranceStory(profile)) : meta.story,
     };

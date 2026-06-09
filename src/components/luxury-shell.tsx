@@ -38,7 +38,6 @@ const collectionDropdownLinks = [
   { key: "women", href: "/collections/women" },
   { key: "men", href: "/collections/men" },
   { key: "unisex", href: "/collections/unisex" },
-  { key: "air", href: "/collections/ac-ambient" },
 ] as const;
 
 export function LuxuryHome({ locale }: PageProps) {
@@ -74,7 +73,7 @@ function AirFragranceCTA({ locale }: PageProps) {
   const activeLocale = getLocale(locale);
   const title = activeLocale === "ar"
     ? "اكتشف مجموعة عطور التكييف والجو الخاصة بنا"
-    : "Explore Our Air & Ambient Collection";
+    : "Explore Our Air Fresheners Collection";
   const buttonText = activeLocale === "ar"
     ? "عرض المجموعة"
     : "View Collection";
@@ -450,9 +449,9 @@ function Header({ locale }: PageProps) {
             ),
           )}
         </nav>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <details className="group relative xl:hidden">
-            <summary className="list-none rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-3 py-2 text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17]">
+            <summary className="list-none rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-2.5 py-1.5 sm:px-3 sm:py-2 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17]">
               {dictionary.nav.byPath["/collections"]}
             </summary>
             <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="absolute right-0 top-[calc(100%+0.5rem)] w-64 border border-[#b58a54]/15 bg-[#fffdf9] p-2 shadow-[0_22px_55px_rgba(31,26,23,0.08)]">
@@ -468,6 +467,13 @@ function Header({ locale }: PageProps) {
               ))}
             </div>
           </details>
+          <Link
+            href={withLocale(locale, "/collections/ac-ambient")}
+            prefetch
+            className="rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-2.5 py-1.5 sm:px-3 sm:py-2 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17] xl:hidden"
+          >
+            {dictionary.nav.byPath["/air-fragrances"]}
+          </Link>
           <LanguageSwitcher locale={activeLocale} />
           <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
             {dictionary.contact.eyebrow}
@@ -489,14 +495,14 @@ function LanguageSwitcher({ locale }: { locale: SupportedLocale }) {
   }
 
   return (
-    <div className="flex shrink-0 items-center rounded-full border border-[#b58a54]/20 bg-[#faf6f0] p-1 text-[0.66rem] font-medium tracking-[0.14em]">
+    <div className="flex shrink-0 items-center rounded-full border border-[#b58a54]/20 bg-[#faf6f0] p-1 text-[0.58rem] sm:text-[0.66rem] font-medium tracking-[0.14em]">
       {(Object.keys(dictionary.languageNames) as SupportedLocale[]).map((option) => (
         <Link
           key={option}
           href={switchHref(option)}
           prefetch
           aria-current={locale === option ? "page" : undefined}
-          className={`rounded-full px-3 py-2 transition duration-300 ${
+          className={`rounded-full px-2 py-1.5 sm:px-3 sm:py-2 transition duration-300 ${
             locale === option
               ? "bg-[#1f1a17] text-[#fffdf9]"
               : "text-[#6f655c] hover:text-[#1f1a17]"
@@ -791,7 +797,7 @@ function ProductCard({
 
   const isAir = product.category === "air";
   const badgeText = isAir
-    ? (locale === "ar" ? "تكييف وجو" : "Air & Ambient")
+    ? (locale === "ar" ? "تكييف وجو" : "Air Fresheners")
     : display.badge;
 
   const badgeStyle = isAir
@@ -807,7 +813,7 @@ function ProductCard({
             alt={display.name}
             fill
             loading="lazy"
-            quality={78}
+            quality={80}
             sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             className={`${isUploadedBottleImage ? "object-contain p-3 md:p-4" : "object-cover"} transition duration-700 ease-out group-hover:scale-[1.015]`}
           />
@@ -821,7 +827,7 @@ function ProductCard({
           <div>
             <p className="text-[0.66rem] uppercase tracking-[0.16em] text-gold">
               {isFeaturedAir
-                ? (locale === "ar" ? "تكييف وجو مميز" : "Air & Ambient Featured")
+                ? (locale === "ar" ? "تكييف وجو مميز" : "Air Fresheners Featured")
                 : display.collection}
             </p>
             <h3 className="mt-2 font-display text-lg text-charcoal md:text-xl">{display.name}</h3>

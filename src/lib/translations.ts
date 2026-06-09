@@ -25,7 +25,7 @@ const categoryNameMap = {
   },
   air: {
     ar: "عطور التكييف والجو",
-    en: "AC & Ambient Fragrances",
+    en: "Air Fresheners",
   },
 } as const;
 
@@ -45,7 +45,7 @@ export const translations = {
         "/women": "Women",
         "/unisex": "Unisex",
         "/new-arrivals": "New Arrivals",
-        "/air-fragrances": "AC & Ambient",
+        "/air-fragrances": "Air Fresheners",
         "/about": "About",
         "/contact": "Contact",
       },
@@ -53,12 +53,13 @@ export const translations = {
         women: "Women's Perfumes",
         men: "Men's Perfumes",
         unisex: "Unisex Perfumes",
-        air: "Air & Ambient Fragrances",
+        air: "Air Fresheners",
       },
       home: [
         { href: "/", label: "Home" },
         { href: "/#new-arrivals", label: "New Arrivals" },
         { href: "/#collections", label: "Collections" },
+        { href: "/collections/ac-ambient", label: "Air Fresheners" },
         { href: "/#about", label: "About" },
         { href: "/#contact", label: "Contact" },
       ],
@@ -102,8 +103,8 @@ export const translations = {
       },
     },
     acAmbientSection: {
-      eyebrow: "AC & Ambient",
-      title: "AC & Ambient Fragrances",
+      eyebrow: "Air Fresheners",
+      title: "Air Fresheners",
       description: "Luxury fragrances designed for homes, offices, hotels, lounges, air conditioning systems, and premium environments.",
       viewFull: "View Full Collection",
     },
@@ -192,7 +193,7 @@ export const translations = {
         description: "New perfumes and spatial rituals shaped with a calm, luxurious editorial eye.",
       },
       airFragrances: {
-        eyebrow: "AC & Ambient Fragrances",
+        eyebrow: "Air Fresheners",
         title: "Interior fragrance for pure, polished spaces.",
         description: "Luxury rituals for air conditioning, homes, boutiques, suites, and spaces with a private identity.",
       },
@@ -264,6 +265,7 @@ export const translations = {
         { href: "/", label: "الرئيسية" },
         { href: "/#new-arrivals", label: "وصل حديثاً" },
         { href: "/#collections", label: "المجموعات" },
+        { href: "/collections/ac-ambient", label: "التكييف والجو" },
         { href: "/#about", label: "من نحن" },
         { href: "/#contact", label: "تواصل" },
       ],
