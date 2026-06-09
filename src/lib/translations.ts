@@ -498,14 +498,14 @@ function translateFamily(family: string, locale: SupportedLocale): string {
 function translateProductName(name: string, locale: SupportedLocale, fallbackArabic?: string): string {
   const match = name.match(/^(.*?)\s*(\d+)$/);
   const baseName = match ? match[1] : name;
-  const numSuffix = match ? ` ${match[2]}` : "";
   
   const cleanBase = baseName.trim();
   const trans = nameTranslations[cleanBase];
   if (trans) {
-    return `${trans[locale]}${numSuffix}`;
+    return trans[locale];
   }
-  return locale === "ar" && fallbackArabic ? `${fallbackArabic.trim()}` : name;
+  const cleanFallback = fallbackArabic ? fallbackArabic.replace(/\s*\d+$/, "").trim() : "";
+  return locale === "ar" && cleanFallback ? cleanFallback : baseName;
 }
 
 function translateMood(mood: string, locale: SupportedLocale): string {
@@ -530,9 +530,9 @@ function generateLocalizedStory(
 ): string {
   if (name.includes("IMAGINATION") || name.includes("إيماجينيشن")) {
     if (locale === "en") {
-      return "IMAGINATION 37 is an amber citrus masterpiece that captures the infinite beauty of the world. It opens with a radiant burst of Calabrian bergamot, citron, and Sicilian orange, evoking the crispness of a Mediterranean morning. The heart unfolds with the warm, unexpected spice of Ceylon cinnamon and Nigerian ginger, wrapped in the delicate floral essence of Tunisian neroli. The fragrance settles into a sublime, long-lasting dry down of ambroxan, precious Chinese black tea, guaiac wood, and sacred olibanum—a contemporary trail of rare elegance and silent power.";
+      return "IMAGINATION is an amber citrus masterpiece that captures the infinite beauty of the world. It opens with a radiant burst of Calabrian bergamot, citron, and Sicilian orange, evoking the crispness of a Mediterranean morning. The heart unfolds with the warm, unexpected spice of Ceylon cinnamon and Nigerian ginger, wrapped in the delicate floral essence of Tunisian neroli. The fragrance settles into a sublime, long-lasting dry down of ambroxan, precious Chinese black tea, guaiac wood, and sacred olibanum—a contemporary trail of rare elegance and silent power.";
     } else {
-      return "إيماجينيشن 37 هي تحفة فنية من الحمضيات العنبرية تجسد الجمال اللامتناهي للعالم. يفتتح العطر بنفحات مشرقة من برغموت كالابريا، الأترج، والبرتقال الصقلي، مما يعيد إلى الأذهان نسيم الصباح المتوسطي المنعش. ينبض قلب العطر بنسمات دافئة وغير متوقعة من قرفة سيلان والزنجبيل النيجيري، مغلفة بجوهر زهر النيرولي التونسي الرقيق. يستقر العطر على قاعدة فاخرة تدوم طويلاً من الأمبروكسان، الشاي الصيني الأسود الثمين، خشب الغاياك، واللبان المقدس—ليترك أثراً معاصراً من الأناقة النادرة والقوة الصامتة.";
+      return "إيماجينيشن هي تحفة فنية من الحمضيات العنبرية تجسد الجمال اللامتناهي للعالم. يفتتح العطر بنفحات مشرقة من برغموت كالابريا، الأترج، والبرتقال الصقلي، مما يعيد إلى الأذهان نسيم الصباح المتوسطي المنعش. ينبض قلب العطر بنسمات دافئة وغير متوقعة من قرفة سيلان والزنجبيل النيجيري، مغلفة بجوهر زهر النيرولي التونسي الرقيق. يستقر العطر على قاعدة فاخرة تدوم طويلاً من الأمبروكسان، الشاي الصيني الأسود الثمين، خشب الغاياك، واللبان المقدس—ليترك أثراً معاصراً من الأناقة النادرة والقوة الصامتة.";
     }
   }
 

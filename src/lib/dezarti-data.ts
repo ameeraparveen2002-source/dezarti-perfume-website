@@ -413,7 +413,7 @@ function createCollection(category: Product["category"], count: number): Product
     const nameFromList = names[index % names.length];
     const profile = category === "air" ? airProfiles[nameFromList] : perfumeProfiles[profileNumber];
     const name = profile?.name ?? names[index % names.length];
-    const number = category === "air" ? "" : ` ${String(profileNumber).padStart(2, "0")}`;
+    const number = "";
     const notes = profile?.notes ?? meta.notes;
     const family = profile ? fragranceFamily(notes, category) : meta.family;
 
