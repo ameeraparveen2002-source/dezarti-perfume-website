@@ -39,33 +39,6 @@ export const navItems = [
 
 const categoryImages: Record<Product["category"], string[]> = {
   men: [
-    "/campaign/men/dezarti-men-page-2.png",
-    "/campaign/men/dezarti-men-page-4.png",
-    "/campaign/men/dezarti-men-page-6.png",
-    "/campaign/men/dezarti-men-page-8.png",
-    "/campaign/men/dezarti-men-page-10.png",
-    "/campaign/men/dezarti-men-page-12.png",
-    "/campaign/men/dezarti-men-page-14.png",
-    "/campaign/men/dezarti-men-page-16.png",
-    "/campaign/men/dezarti-men-page-18.png",
-    "/campaign/men/dezarti-men-page-20.png",
-    "/campaign/men/dezarti-men-page-22.png",
-    "/campaign/men/dezarti-men-page-24.png",
-    "/campaign/men/dezarti-men-page-26.png",
-    "/campaign/men/dezarti-men-page-28.png",
-    "/campaign/men/dezarti-men-page-30.png",
-    "/campaign/men/dezarti-men-page-32.png",
-    "/campaign/men/dezarti-men-page-34.png",
-    "/campaign/men/dezarti-men-page-36.png",
-    "/campaign/men/dezarti-men-page-38.png",
-    "/campaign/men/dezarti-men-page-40.png",
-    "/campaign/men/dezarti-men-page-42.png",
-    "/campaign/men/dezarti-men-page-44.png",
-    "/campaign/men/dezarti-men-page-46.png",
-    "/campaign/men/dezarti-men-page-48.png",
-    "/campaign/men/dezarti-men-page-50.png",
-  ],
-  women: [
     "/campaign/women/dezarti-women-page-1.png",
     "/campaign/women/dezarti-women-page-3.png",
     "/campaign/women/dezarti-women-page-5.png",
@@ -91,6 +64,33 @@ const categoryImages: Record<Product["category"], string[]> = {
     "/campaign/women/dezarti-women-page-45.png",
     "/campaign/women/dezarti-women-page-47.png",
     "/campaign/women/dezarti-women-page-49.png",
+  ],
+  women: [
+    "/campaign/men/dezarti-men-page-2.png",
+    "/campaign/men/dezarti-men-page-4.png",
+    "/campaign/men/dezarti-men-page-6.png",
+    "/campaign/men/dezarti-men-page-8.png",
+    "/campaign/men/dezarti-men-page-10.png",
+    "/campaign/men/dezarti-men-page-12.png",
+    "/campaign/men/dezarti-men-page-14.png",
+    "/campaign/men/dezarti-men-page-16.png",
+    "/campaign/men/dezarti-men-page-18.png",
+    "/campaign/men/dezarti-men-page-20.png",
+    "/campaign/men/dezarti-men-page-22.png",
+    "/campaign/men/dezarti-men-page-24.png",
+    "/campaign/men/dezarti-men-page-26.png",
+    "/campaign/men/dezarti-men-page-28.png",
+    "/campaign/men/dezarti-men-page-30.png",
+    "/campaign/men/dezarti-men-page-32.png",
+    "/campaign/men/dezarti-men-page-34.png",
+    "/campaign/men/dezarti-men-page-36.png",
+    "/campaign/men/dezarti-men-page-38.png",
+    "/campaign/men/dezarti-men-page-40.png",
+    "/campaign/men/dezarti-men-page-42.png",
+    "/campaign/men/dezarti-men-page-44.png",
+    "/campaign/men/dezarti-men-page-46.png",
+    "/campaign/men/dezarti-men-page-48.png",
+    "/campaign/men/dezarti-men-page-50.png",
   ],
   unisex: [
     "/campaign/unisex/dezarti-unisex-page-2.png",
@@ -185,18 +185,18 @@ const collectionMeta: Record<Product["category"], {
 
 const productNames: Record<Product["category"], string[]> = {
   men: [
-    "LIBRE", "MISS GRASSE", "ALIENN", "IDOLLE", "ELLI",
-    "ADORE", "FOREVER", "GOOD GIRL", "PATCHOULI", "MARSH",
-    "TOP", "LAVANDER", "RED TOBACCO", "OPIUM", "ROMA",
-    "HER", "FLORA", "NEW YORK DREAM", "PACIFIC", "POUR HOMME",
-    "COCO", "SCANDAL RED", "COMETE", "WAVE-CHILLED", "GIRL BLUSH",
-  ],
-  women: [
     "MY WAY", "MAHAJAD", "BACARAT", "PRINCE", "TOBACCO VANILLE",
     "IRISH LEATHER", "SAVAGE", "REPTILE", "TIGER", "CAVALY",
     "APRES", "OUDI", "OUD TOBACCO", "AFGAN", "G&Y",
     "BRITISH LEATHER", "SMART", "NEW YORK", "IMAGINATION", "JARA",
     "HOMME", "SCANDAL MAN", "DARK SAFFRON", "VALLY", "SENSUAL OUD",
+  ],
+  women: [
+    "LIBRE", "MISS GRASSE", "ALIENN", "IDOLLE", "ELLI",
+    "ADORE", "FOREVER", "GOOD GIRL", "PATCHOULI", "MARSH",
+    "TOP", "LAVANDER", "RED TOBACCO", "OPIUM", "ROMA",
+    "HER", "FLORA", "NEW YORK DREAM", "PACIFIC", "POUR HOMME",
+    "COCO", "SCANDAL RED", "COMETE", "WAVE-CHILLED", "GIRL BLUSH",
   ],
   unisex: [
     "نالي", "عنبر سيرين", "عود لوميير", "أمبر ريتوال", "تي نوير",
@@ -364,8 +364,8 @@ const airProfiles: Record<string, PerfumeProfile> = {
 };
 
 function productNumberFor(category: Product["category"], index: number, image: string) {
-  if (category === "women") return index * 2 + 1;
-  if (category === "men") return index * 2 + 2;
+  if (category === "women") return index * 2 + 2;
+  if (category === "men") return index * 2 + 1;
 
   const imageNumber = image.match(/page-(\d+)/)?.[1];
   return imageNumber ? Number(imageNumber) : index + 1;
@@ -472,13 +472,13 @@ export const collectionCards = [
     title: "عطور الرجال",
     href: "/men",
     copy: "أخشاب مصقولة، عنبر داكن، وتوقيع رجالي هادئ الحضور.",
-    image: "/campaign/men/dezarti-men-page-26.png",
+    image: "/campaign/women/dezarti-women-page-3.png",
   },
   {
     title: "عطور النساء",
     href: "/women",
     copy: "زهور راقية، مسك مضيء، وأنوثة مصاغة كقطعة كوتور.",
-    image: "/campaign/women/dezarti-women-page-3.png",
+    image: "/campaign/men/dezarti-men-page-26.png",
   },
   {
     title: "عطور للجنسين",

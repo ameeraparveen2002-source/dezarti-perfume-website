@@ -34,6 +34,11 @@ export const metadata: Metadata = {
   },
   description:
     "Discover premium perfumes, luxury fragrances, and air fresheners from Dezarti Perfumes. Explore men's, women's, unisex perfumes and premium air fresheners in Qatar.",
+  icons: {
+    icon: "/campaign/logo/Dezarti-logo.jpeg",
+    shortcut: "/campaign/logo/Dezarti-logo.jpeg",
+    apple: "/campaign/logo/Dezarti-logo.jpeg",
+  },
   keywords: [
     "Dezarti Perfumes",
     "Dezarti Perfumes Qatar",

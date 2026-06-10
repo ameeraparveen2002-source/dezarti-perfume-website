@@ -51,7 +51,7 @@ export function getBaseMetadata(locale: string, path: string): Metadata {
       title = "Men's Perfumes Qatar | Best Long Lasting Perfumes for Men | Dezarti Perfumes";
       description = "Explore the best men's perfumes in Qatar. Buy premium, long-lasting fragrances for men featuring dark woods, rich leather, amber, and modern masculine signatures.";
     }
-    ogImage = "/campaign/men/dezarti-men-page-26.png";
+    ogImage = "/campaign/women/dezarti-women-page-25.png";
   } else if (path === "/collections/women" || path === "/women") {
     if (locale === "ar") {
       title = "عطور نسائية في قطر | عطور نسائية فاخرة تدوم طويلاً | عطور دزاراتي";
@@ -60,7 +60,7 @@ export function getBaseMetadata(locale: string, path: string): Metadata {
       title = "Women's Perfumes Qatar | Luxury Women's Fragrances | Dezarti Perfumes";
       description = "Shop luxury women's perfumes in Qatar. Discover long-lasting premium fragrances for women featuring refined rose, jasmine, vanilla, and soft elegant signatures.";
     }
-    ogImage = "/campaign/women/dezarti-women-page-3.png";
+    ogImage = "/campaign/men/dezarti-men-page-26.png";
   } else if (path === "/collections/unisex" || path === "/unisex") {
     if (locale === "ar") {
       title = "عطور للجنسين في قطر | عطور للجنسين فاخرة ومميزة | عطور دزاراتي";
