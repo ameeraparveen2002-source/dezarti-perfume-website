@@ -569,11 +569,11 @@ function Header({ locale }: PageProps) {
           <Link href={withLocale(locale, "/")} prefetch className="shrink-0 font-serif text-lg tracking-[0.28em] md:text-2xl">
             DEZARTI
           </Link>
-          <nav dir={activeLocale === "ar" ? "rtl" : "ltr"} className="hidden items-center gap-5 text-[0.64rem] font-normal uppercase tracking-[0.13em] text-[#6f655c] xl:flex 2xl:gap-7">
+          <nav dir={activeLocale === "ar" ? "rtl" : "ltr"} className="hidden items-center gap-5 text-[0.64rem] font-normal uppercase tracking-[0.13em] text-[#6f655c] xl:flex xl:flex-nowrap shrink-0 2xl:gap-7">
             {dictionary.nav.home.map((item) =>
               item.href === "/#collections" ? (
-                <div key={item.href} className="group relative py-7">
-                  <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+                <div key={item.href} className="group relative py-7 shrink-0">
+                  <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17] whitespace-nowrap">
                     {item.label}
                   </Link>
                   <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
@@ -590,17 +590,17 @@ function Header({ locale }: PageProps) {
                   </div>
                 </div>
               ) : (
-                <Link key={item.href} href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+                <Link key={item.href} href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17] whitespace-nowrap">
                   {item.label}
                 </Link>
               ),
             )}
           </nav>
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-nowrap shrink-0">
             <LanguageSwitcher locale={activeLocale} />
             <a
               href={`tel:+${dictionary.contact.whatsappNumber}`}
-              className="rounded-full border border-[#b58a54]/25 px-3 py-1.5 text-[0.58rem] sm:text-[0.66rem] uppercase tracking-[0.14em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] inline-flex items-center gap-1.5"
+              className="rounded-full border border-[#b58a54]/25 px-3 py-1.5 text-[0.58rem] sm:text-[0.66rem] uppercase tracking-[0.14em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
               aria-label={activeLocale === "ar" ? "اتصل بنا الآن" : "Call us now"}
             >
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -608,7 +608,7 @@ function Header({ locale }: PageProps) {
               </svg>
               <span>{activeLocale === "ar" ? "اتصل الآن" : "Call now"}</span>
             </a>
-            <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
+            <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex whitespace-nowrap shrink-0">
               {dictionary.contact.eyebrow}
             </Link>
             
