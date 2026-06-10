@@ -416,72 +416,243 @@ function SplashIntro() {
 function Header({ locale }: PageProps) {
   const activeLocale = getLocale(locale);
   const dictionary = getDictionary(activeLocale);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close mobile menu on page navigation
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#b58a54]/15 bg-[#f4ede4]/95">
-      <div dir="ltr" className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-4 px-5 text-[#1f1a17] md:h-20 md:px-8">
-        <Link href={withLocale(locale, "/")} prefetch className="shrink-0 font-serif text-lg tracking-[0.28em] md:text-2xl">
-          DEZARTI
-        </Link>
-        <nav dir={activeLocale === "ar" ? "rtl" : "ltr"} className="hidden items-center gap-5 text-[0.64rem] font-normal uppercase tracking-[0.13em] text-[#6f655c] xl:flex 2xl:gap-7">
-          {dictionary.nav.home.map((item) =>
-            item.href === "/#collections" ? (
-              <div key={item.href} className="group relative py-7">
-                <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+    <>
+      <header className="fixed left-0 right-0 top-0 z-50 border-b border-[#b58a54]/15 bg-[#f4ede4]/95">
+        <div dir="ltr" className="mx-auto flex h-[72px] max-w-[1200px] items-center justify-between gap-4 px-5 text-[#1f1a17] md:h-20 md:px-8">
+          <Link href={withLocale(locale, "/")} prefetch className="shrink-0 font-serif text-lg tracking-[0.28em] md:text-2xl">
+            DEZARTI
+          </Link>
+          <nav dir={activeLocale === "ar" ? "rtl" : "ltr"} className="hidden items-center gap-5 text-[0.64rem] font-normal uppercase tracking-[0.13em] text-[#6f655c] xl:flex 2xl:gap-7">
+            {dictionary.nav.home.map((item) =>
+              item.href === "/#collections" ? (
+                <div key={item.href} className="group relative py-7">
+                  <Link href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
+                    {item.label}
+                  </Link>
+                  <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    {collectionDropdownLinks.map((link) => (
+                      <Link
+                        key={link.key}
+                        href={withLocale(locale, link.href)}
+                        prefetch
+                        className="block rounded-[2px] px-4 py-3 text-[0.64rem] tracking-[0.13em] text-[#6f655c] transition duration-300 hover:bg-[#f4ede4] hover:text-[#1f1a17]"
+                      >
+                        {dictionary.nav.collectionsDropdown[link.key]}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link key={item.href} href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
                   {item.label}
                 </Link>
-                <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="pointer-events-none absolute left-1/2 top-full min-w-64 -translate-x-1/2 -translate-y-2 border border-[#b58a54]/15 bg-[#fffdf9]/98 p-2 opacity-0 shadow-[0_22px_55px_rgba(31,26,23,0.08)] transition duration-300 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                  {collectionDropdownLinks.map((link) => (
-                    <Link
-                      key={link.key}
-                      href={withLocale(locale, link.href)}
-                      prefetch
-                      className="block rounded-[2px] px-4 py-3 text-[0.64rem] tracking-[0.13em] text-[#6f655c] transition duration-300 hover:bg-[#f4ede4] hover:text-[#1f1a17]"
-                    >
-                      {dictionary.nav.collectionsDropdown[link.key]}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <Link key={item.href} href={withLocale(locale, item.href)} prefetch className="transition duration-300 hover:text-[#1f1a17]">
-                {item.label}
-              </Link>
-            ),
-          )}
-        </nav>
-        <div className="flex items-center gap-2 sm:gap-3">
-          <details className="group relative xl:hidden">
-            <summary className="list-none rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-2.5 py-1.5 sm:px-3 sm:py-2 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17]">
-              {dictionary.nav.byPath["/collections"]}
-            </summary>
-            <div dir={activeLocale === "ar" ? "rtl" : "ltr"} className="absolute right-0 top-[calc(100%+0.5rem)] w-64 border border-[#b58a54]/15 bg-[#fffdf9] p-2 shadow-[0_22px_55px_rgba(31,26,23,0.08)]">
-              {collectionDropdownLinks.map((link) => (
-                <Link
-                  key={link.key}
-                  href={withLocale(locale, link.href)}
-                  prefetch
-                  className="block rounded-[2px] px-4 py-3 text-[0.64rem] uppercase tracking-[0.13em] text-[#6f655c] transition duration-300 hover:bg-[#f4ede4] hover:text-[#1f1a17]"
-                >
-                  {dictionary.nav.collectionsDropdown[link.key]}
-                </Link>
-              ))}
-            </div>
-          </details>
-          <Link
-            href={withLocale(locale, "/collections/ac-ambient")}
-            prefetch
-            className="rounded-full border border-[#b58a54]/20 bg-[#faf6f0] px-2.5 py-1.5 sm:px-3 sm:py-2 text-[0.58rem] sm:text-[0.62rem] uppercase tracking-[0.14em] text-[#6f655c] transition duration-300 hover:text-[#1f1a17] xl:hidden"
-          >
-            {dictionary.nav.byPath["/air-fragrances"]}
-          </Link>
-          <LanguageSwitcher locale={activeLocale} />
-          <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
-            {dictionary.contact.eyebrow}
-          </Link>
+              ),
+            )}
+          </nav>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <LanguageSwitcher locale={activeLocale} />
+            <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
+              {dictionary.contact.eyebrow}
+            </Link>
+            
+            {/* Mobile Menu Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-[#b58a54]/20 bg-[#faf6f0] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] xl:hidden sm:h-9 sm:w-9"
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Menu Drawer */}
+      <MobileMenuDrawer isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} locale={locale} />
+    </>
+  );
+}
+
+interface MobileMenuDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  locale: string;
+}
+
+function MobileMenuDrawer({ isOpen, onClose, locale }: MobileMenuDrawerProps) {
+  const activeLocale = getLocale(locale);
+  const dictionary = getDictionary(activeLocale);
+  const [isCollectionsOpen, setIsCollectionsOpen] = useState(false);
+
+  // Animation variants
+  const drawerVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { 
+      opacity: 1, 
+      height: "calc(100vh - 72px)",
+      transition: { 
+        duration: 0.5, 
+        ease: [0.215, 0.61, 0.355, 1] as const,
+        when: "beforeChildren",
+        staggerChildren: 0.05
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      height: 0,
+      transition: { 
+        duration: 0.4, 
+        ease: [0.215, 0.61, 0.355, 1] as const 
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.215, 0.61, 0.355, 1] as const } }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          key="mobile-drawer"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={drawerVariants}
+          dir={activeLocale === "ar" ? "rtl" : "ltr"}
+          className="fixed inset-x-0 top-[72px] z-40 overflow-y-auto bg-[#f4ede4]/98 px-6 py-8 backdrop-blur-md border-t border-[#b58a54]/15 flex flex-col justify-between md:top-20"
+          style={{ height: "calc(100vh - 72px)" }}
+        >
+          {/* Subtle line decoration & paper texture */}
+          <div className="absolute inset-0 -z-10 pointer-events-none opacity-20">
+            <div className="absolute inset-0 bg-[#faf6f0]" />
+            <div className="film-grain" />
+          </div>
+          
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
+              {dictionary.nav.home.map((item) => {
+                if (item.href === "/#collections") {
+                  return (
+                    <motion.div key={item.href} variants={itemVariants} className="border-b border-[#b58a54]/10 pb-3">
+                      <button
+                        type="button"
+                        onClick={() => setIsCollectionsOpen(!isCollectionsOpen)}
+                        className="flex w-full items-center justify-between font-serif text-lg text-[#1f1a17] hover:text-gold md:text-xl"
+                      >
+                        <span className={activeLocale === "ar" ? "text-right" : "text-left"}>{item.label}</span>
+                        <svg
+                          className={`h-4 w-4 transition-transform duration-300 ${isCollectionsOpen ? "rotate-180" : ""}`}
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                      </button>
+                      <AnimatePresence>
+                        {isCollectionsOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.215, 0.61, 0.355, 1] }}
+                            className="overflow-hidden mt-3 flex flex-col gap-3 ltr:border-l ltr:border-[#b58a54]/15 ltr:pl-4 ltr:pr-0 rtl:border-r rtl:border-[#b58a54]/15 rtl:pr-4 rtl:pl-0"
+                          >
+                            {collectionDropdownLinks.map((link) => (
+                              <Link
+                                key={link.key}
+                                href={withLocale(locale, link.href)}
+                                className="block py-1.5 text-xs tracking-[0.12em] text-[#6f655c] hover:text-[#1f1a17] uppercase"
+                              >
+                                {dictionary.nav.collectionsDropdown[link.key]}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  );
+                }
+
+                return (
+                  <motion.div key={item.href} variants={itemVariants} className="border-b border-[#b58a54]/10 pb-3">
+                    <Link
+                      href={withLocale(locale, item.href)}
+                      className="block font-serif text-lg text-[#1f1a17] hover:text-gold md:text-xl"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          <motion.div variants={itemVariants} className="mt-8 flex flex-col gap-6 border-t border-[#b58a54]/15 pt-6">
+            <div className="flex flex-col gap-2.5 text-xs tracking-wide text-[#6f655c] sm:text-sm">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-gold">{dictionary.contact.service}</p>
+              <a href={`mailto:${dictionary.contact.emailAddress}`} className="hover:text-[#1f1a17]">
+                {dictionary.contact.emailLabel}: <span className="font-serif">{dictionary.contact.emailAddress}</span>
+              </a>
+              <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="hover:text-[#1f1a17]">
+                {dictionary.contact.whatsappLabel}: <span className="font-serif">{dictionary.contact.whatsappDisplay}</span>
+              </a>
+            </div>
+            
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link
+                href={withLocale(locale, "/contact")}
+                className="w-full text-center luxury-button py-3 text-[0.62rem]"
+              >
+                {dictionary.contact.eyebrow}
+              </Link>
+              <a
+                href={whatsappLink(locale)}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full text-center luxury-button luxury-button-ghost py-3 text-[0.62rem]"
+              >
+                {dictionary.product.inquire}
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 
