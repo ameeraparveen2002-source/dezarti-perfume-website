@@ -25,6 +25,7 @@ export default async function WomensPage({ params }: { params: Promise<{ locale:
   const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", {
     path: "/women",
   });
+  const faqJsonLd = getStructuredData(locale, "faq", { path: "/women" });
 
   return (
     <>
@@ -38,6 +39,12 @@ export default async function WomensPage({ params }: { params: Promise<{ locale:
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <CollectionPage

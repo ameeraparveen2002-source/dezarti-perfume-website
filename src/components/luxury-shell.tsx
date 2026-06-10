@@ -49,6 +49,7 @@ export function LuxuryHome({ locale }: PageProps) {
   return (
     <LuxuryShell locale={locale} splash>
       <Hero locale={locale} />
+      <SEOIntroSection locale={locale} />
       {newArrivalsSection && (
         <HomeProductSection locale={locale} index={0} {...newArrivalsSection} />
       )}
@@ -64,8 +65,125 @@ export function LuxuryHome({ locale }: PageProps) {
         <HomeProductSection key={section.id} locale={locale} index={index + 3} {...section} />
       ))}
       <AboutPreview locale={locale} />
+      <FAQSection locale={locale} page="home" />
       <HomeContactSection locale={locale} />
     </LuxuryShell>
+  );
+}
+
+function SEOIntroSection({ locale }: PageProps) {
+  const activeLocale = getLocale(locale);
+  
+  return (
+    <section className="bg-[#faf6f0] px-6 py-10 md:px-12 md:py-16 text-center border-b border-[#b58a54]/15">
+      <div className="mx-auto max-w-[1000px] relative z-10 flex flex-col items-center">
+        <p className="luxury-eyebrow">
+          {activeLocale === "ar" ? "دار عطور فاخرة في قطر" : "Luxury Fragrance Experience in Qatar"}
+        </p>
+        <h2 className="mt-4 font-display text-2xl font-light leading-[1.25] text-[#1f1a17] sm:text-3xl md:text-4xl max-w-2xl">
+          {activeLocale === "ar" 
+            ? "دزاراتي للعطور - خيارك الأول للعطور الفاخرة ومعطرات الجو في قطر"
+            : "Dezarti Perfumes - Your Premier Perfume Shop & Luxury Fragrance House in Qatar"}
+        </h2>
+        <p className="mt-6 text-sm leading-[1.8] text-[#6f655c] md:text-base max-w-3xl">
+          {activeLocale === "ar"
+            ? "مرحباً بكم في عطور دزاراتي، متجر العطور الفاخر الرائد في قطر. نحن فخورون بتقديم أرقى تشكيلات العطور الرجالية الفاخرة، العطور النسائية الأنيقة، والعطور للجنسين المبتكرة. نركز في صياغتنا على الثبات العالي والأثر الخالد، مما يتيح لكم شراء العطور عبر الإنترنت بثقة تامة. تشتمل مجموعتنا أيضاً على معطرات الجو والتكييف المتميزة لإضفاء لمسة من الفخامة والنقاء على مساحاتكم الخاصة."
+            : "Welcome to Dezarti Perfumes, the ultimate luxury perfume shop in Qatar. We craft signature, long-lasting fragrances designed to evoke memories, elegance, and distinct presence. Whether you are looking to buy perfumes online in Qatar or discover premium men's perfumes, luxury women's perfumes, or sophisticated unisex perfumes, our curated collections offer unmatched sophistication. Explore our spatial air fresheners collection to elevate your home or office ambient scenting."}
+        </p>
+        
+        {/* Internal links for SEO structure */}
+        <div className="mt-8 flex flex-wrap justify-center gap-4 text-xs tracking-wide uppercase text-gold">
+          <Link href={withLocale(locale, "/men")} className="transition hover:text-[#1f1a17]">
+            {activeLocale === "ar" ? "عطور الرجال في قطر" : "Men's Perfumes Qatar"}
+          </Link>
+          <span className="text-[#b58a54]/30">•</span>
+          <Link href={withLocale(locale, "/women")} className="transition hover:text-[#1f1a17]">
+            {activeLocale === "ar" ? "عطور النساء في قطر" : "Women's Perfumes Qatar"}
+          </Link>
+          <span className="text-[#b58a54]/30">•</span>
+          <Link href={withLocale(locale, "/unisex")} className="transition hover:text-[#1f1a17]">
+            {activeLocale === "ar" ? "عطور للجنسين في قطر" : "Unisex Perfumes Qatar"}
+          </Link>
+          <span className="text-[#b58a54]/30">•</span>
+          <Link href={withLocale(locale, "/air-fragrances")} className="transition hover:text-[#1f1a17]">
+            {activeLocale === "ar" ? "معطرات الجو في قطر" : "Air Fresheners Qatar"}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FAQSection({ locale, page = "home" }: PageProps & { page?: "home" | "men" | "women" | "unisex" | "air" }) {
+  const activeLocale = getLocale(locale);
+  const dictionary = getDictionary(locale) as unknown as {
+    faqs?: Record<string, readonly { readonly question: string; readonly answer: string }[]>;
+  };
+  const faqs = dictionary.faqs?.[page] || [];
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  if (faqs.length === 0) return null;
+
+  return (
+    <section className="bg-[#f4ede4] px-6 py-12 md:px-12 md:py-16 scroll-mt-24 border-t border-[#b58a54]/15">
+      <div className="mx-auto max-w-[800px] relative z-10">
+        <div className="text-center mb-10">
+          <p className="luxury-eyebrow">
+            {activeLocale === "ar" ? "الأسئلة الشائعة" : "FAQ"}
+          </p>
+          <h2 className="mt-3 font-display text-2xl font-light text-[#1f1a17] sm:text-3xl md:text-4xl">
+            {activeLocale === "ar" ? "الأسئلة المتكررة حول عطورنا" : "Frequently Asked Questions"}
+          </h2>
+        </div>
+        <div className="space-y-4">
+          {faqs.map((faq, index: number) => {
+            const isOpen = openIndex === index;
+            return (
+              <div 
+                key={index} 
+                className="border border-[#b58a54]/15 rounded-[3px] bg-[#fffdf9] overflow-hidden transition-all duration-300"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="w-full flex items-center justify-between p-5 text-left font-serif text-[#1f1a17] hover:text-gold transition duration-300"
+                  aria-expanded={isOpen}
+                >
+                  <span className={`text-base font-medium ${activeLocale === "ar" ? "text-right" : "text-left"}`}>
+                    {faq.question}
+                  </span>
+                  <svg
+                    className={`h-4 w-4 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: [0.215, 0.61, 0.355, 1] }}
+                    >
+                      <div className="px-5 pb-5 pt-0 text-sm leading-[1.8] text-[#6f655c] border-t border-[#b58a54]/10">
+                        <p className={activeLocale === "ar" ? "text-right" : "text-left"}>
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -136,6 +254,9 @@ export function CollectionPage({
         title={dictionary.product.curatedTitle}
         items={items}
       />
+      {filter && filter !== "new" && filter !== "best" && (
+        <FAQSection locale={locale} page={filter} />
+      )}
     </LuxuryShell>
   );
 }
@@ -486,7 +607,7 @@ function Header({ locale }: PageProps) {
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="flex h-[34px] w-[34px] items-center justify-center rounded-full border border-[#b58a54]/20 bg-[#faf6f0] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] xl:hidden sm:h-9 sm:w-9"
-              aria-label="Toggle Menu"
+              aria-label={activeLocale === "ar" ? "تبديل القائمة" : "Toggle Menu"}
             >
               {isMobileMenuOpen ? (
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.2">
@@ -514,7 +635,7 @@ interface MobileMenuDrawerProps {
   locale: string;
 }
 
-function MobileMenuDrawer({ isOpen, onClose, locale }: MobileMenuDrawerProps) {
+function MobileMenuDrawer({ isOpen, onClose: _onClose, locale }: MobileMenuDrawerProps) {
   const activeLocale = getLocale(locale);
   const dictionary = getDictionary(activeLocale);
   const [isCollectionsOpen, setIsCollectionsOpen] = useState(false);
@@ -711,8 +832,17 @@ function Hero({ locale }: PageProps) {
             {dictionary.hero.text}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <MagneticLink href={withLocale(locale, "/collections")}>{dictionary.hero.primaryCta}</MagneticLink>
-            <MagneticLink href={withLocale(locale, "/about")} variant="ghost">
+            <MagneticLink
+              href={withLocale(locale, "/collections")}
+              aria-label={locale === "ar" ? "استكشف مجموعات العطور الفاخرة الكاملة" : "Explore our full luxury perfume collections"}
+            >
+              {dictionary.hero.primaryCta}
+            </MagneticLink>
+            <MagneticLink
+              href={withLocale(locale, "/about")}
+              variant="ghost"
+              aria-label={locale === "ar" ? "اكتشف قصة دار عطور دزاراتي الفاخرة" : "Discover the story of Dezarti Perfumes house"}
+            >
               {dictionary.hero.secondaryCta}
             </MagneticLink>
           </div>
@@ -775,7 +905,11 @@ function AboutPreview({ locale }: PageProps) {
           {dictionary.about.text}
         </p>
         <div className="mt-6">
-          <MagneticLink href={withLocale(locale, "/about")} variant="ghost">
+          <MagneticLink
+            href={withLocale(locale, "/about")}
+            variant="ghost"
+            aria-label={locale === "ar" ? "تعرف على قصة دار عطور دزاراتي في قطر" : "Learn more about the story of Dezarti Perfumes in Qatar"}
+          >
             {dictionary.about.cta}
           </MagneticLink>
         </div>
@@ -1024,7 +1158,13 @@ function ProductCard({
           </div>
         </div>
       </Link>
-      <a href={whatsappLink(locale, product)} target="_blank" rel="noreferrer" className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2 text-center text-[0.66rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5 shrink-0">
+      <a
+        href={whatsappLink(locale, product)}
+        target="_blank"
+        rel="noreferrer"
+        className="mx-4 mb-4 block rounded-[3px] border border-[#b58a54]/20 py-2 text-center text-[0.66rem] tracking-[0.1em] text-charcoal/70 transition duration-500 ease-out hover:border-gold hover:text-gold md:mx-5 md:mb-5 shrink-0"
+        aria-label={locale === "ar" ? `استفسر عن عطر ${display.name} عبر الواتساب` : `Inquire about ${display.name} on WhatsApp`}
+      >
         {dictionary.product.inquire}
       </a>
     </motion.article>
@@ -1150,7 +1290,7 @@ function EditorialHero({ eyebrow, title, copy }: { eyebrow: string; title: strin
 function NoteGroup({ title, notes }: { title: string; notes: string[] }) {
   return (
     <div className="rounded-[3px] border border-[#b58a54]/15 bg-[#fffdf9] p-5">
-      <h3 className="font-display text-xl text-[#1f1a17]">{title}</h3>
+      <h2 className="font-display text-xl text-[#1f1a17]">{title}</h2>
       <div className="mt-5 grid gap-3">
         {notes.map((note, index) => (
           <div key={`${note}-${index}`} className="flex items-center gap-3 rounded-[3px] border border-[#b58a54]/15 bg-[#faf6f0] px-4 py-3">
@@ -1183,7 +1323,8 @@ function MagneticLink({
   children,
   variant = "solid",
   external = false,
-}: React.PropsWithChildren<{ href: string; variant?: "solid" | "ghost" | "collection"; external?: boolean }>) {
+  ...rest
+}: React.PropsWithChildren<{ href: string; variant?: "solid" | "ghost" | "collection"; external?: boolean } & React.AnchorHTMLAttributes<HTMLAnchorElement>>) {
   const className =
     variant === "solid"
       ? "luxury-button"
@@ -1193,14 +1334,14 @@ function MagneticLink({
 
   if (external) {
     return (
-      <a href={href} target="_blank" rel="noreferrer" className={className}>
+      <a href={href} target="_blank" rel="noreferrer" className={className} {...rest}>
         {children}
       </a>
     );
   }
 
   return (
-    <Link href={href} prefetch className={className}>
+    <Link href={href} prefetch className={className} {...rest}>
       {children}
     </Link>
   );

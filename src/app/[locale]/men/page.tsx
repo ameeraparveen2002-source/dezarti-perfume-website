@@ -25,6 +25,7 @@ export default async function MensPage({ params }: { params: Promise<{ locale: s
   const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", {
     path: "/men",
   });
+  const faqJsonLd = getStructuredData(locale, "faq", { path: "/men" });
 
   return (
     <>
@@ -38,6 +39,12 @@ export default async function MensPage({ params }: { params: Promise<{ locale: s
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <CollectionPage

@@ -25,6 +25,7 @@ export default async function UnisexPage({ params }: { params: Promise<{ locale:
   const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", {
     path: "/unisex",
   });
+  const faqJsonLd = getStructuredData(locale, "faq", { path: "/unisex" });
 
   return (
     <>
@@ -38,6 +39,12 @@ export default async function UnisexPage({ params }: { params: Promise<{ locale:
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <CollectionPage

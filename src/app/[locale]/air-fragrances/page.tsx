@@ -25,6 +25,7 @@ export default async function AirFragrancesPage({ params }: { params: Promise<{ 
   const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", {
     path: "/air-fragrances",
   });
+  const faqJsonLd = getStructuredData(locale, "faq", { path: "/air-fragrances" });
 
   return (
     <>
@@ -38,6 +39,12 @@ export default async function AirFragrancesPage({ params }: { params: Promise<{ 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <CollectionPage

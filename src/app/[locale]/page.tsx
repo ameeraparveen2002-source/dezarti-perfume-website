@@ -16,6 +16,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const websiteJsonLd = getStructuredData(locale, "website");
   const organizationJsonLd = getStructuredData(locale, "organization");
   const localBusinessJsonLd = getStructuredData(locale, "localbusiness");
+  const faqJsonLd = getStructuredData(locale, "faq", { path: "/" });
 
   return (
     <>
@@ -35,6 +36,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
+      )}
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       )}
       <LuxuryHome locale={locale} />

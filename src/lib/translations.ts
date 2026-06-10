@@ -112,7 +112,7 @@ export const translations = {
       eyebrow: "About Us",
       title: "Luxury fragrances from Qatar, crafted for lasting impressions.",
       text: "Dezarati Perfume is a luxury fragrance brand based in Qatar, offering premium perfumes and ambient fragrances crafted to deliver elegance, sophistication, and long-lasting impressions. Our collection is designed for individuals who appreciate quality, refinement, and timeless scents that enhance everyday experiences.",
-      cta: "Learn More",
+      cta: "About Dezarti Perfumes",
       pageEyebrow: "About Dezarati Perfume",
       pageTitle: "A Qatar-based luxury fragrance house shaped by elegance and refinement.",
       pageText: "Dezarati Perfume is a luxury fragrance brand based in Qatar, offering premium perfumes and ambient fragrances crafted to deliver elegance, sophistication, and long-lasting impressions. Our collection is designed for individuals who appreciate quality, refinement, and timeless scents that enhance everyday experiences.",
@@ -230,6 +230,46 @@ export const translations = {
       eyebrow: "Luxury Statement",
       title: "Designed for the exceptional.",
     },
+    faqs: {
+      home: [
+        {
+          question: "Where can I buy Dezarti Perfumes in Qatar?",
+          answer: "You can buy Dezarti Perfumes online at dezartiperfumes.com with delivery across Doha and all of Qatar, or contact us via WhatsApp for a private consultation or customer support."
+        },
+        {
+          question: "Are Dezarti perfumes long-lasting?",
+          answer: "Yes, Dezarti Perfumes are formulated with high-concentration luxury fragrance oils, offering exceptional longevity of 8 to 14+ hours on the skin, depending on the scent family."
+        },
+        {
+          question: "Do you offer air fragrances for air conditioning systems?",
+          answer: "Yes, our Spatial AC Ambient collection features premium ambient scents designed to be sprayed in rooms or applied directly to air conditioning filters for hotel-style scenting."
+        }
+      ],
+      men: [
+        {
+          question: "What are the best long-lasting perfumes for men in Qatar?",
+          answer: "Dezarti offers highly popular long-lasting men's perfumes like Red Tobacco and Irish Leather, composed for calm strength, leather, spice, and woody trails."
+        }
+      ],
+      women: [
+        {
+          question: "What are the top luxury women's perfumes from Dezarti?",
+          answer: "Our top luxury women's fragrances include Libre, Good Girl, and Baccarat, blending refined floral notes, warm vanilla, and amber elements for lasting impressions."
+        }
+      ],
+      unisex: [
+        {
+          question: "What premium unisex fragrances do you recommend?",
+          answer: "Our premium unisex collection features warm amber, incense, black tea, and oud notes, creating unique scent profiles that move fluidly between tastes."
+        }
+      ],
+      air: [
+        {
+          question: "How do I apply and use Dezarti air fresheners?",
+          answer: "Dezarti spatial ambient fragrances can be sprayed in the air or on AC filters to give homes, boutiques, offices, and suites a clean, premium, and polished identity."
+        }
+      ]
+    },
     whatsapp: {
       generic: "Hello DEZARTI, I would like to inquire about your fragrances and services.",
       productPrefix: "Hello DEZARTI, I would like to inquire about",
@@ -319,7 +359,7 @@ export const translations = {
       title: "عطور فاخرة من قطر، مصممة لانطباعات تدوم.",
       text: "دزاراتي للعطور علامة عطرية فاخرة مقرها قطر، تقدم عطوراً راقية وروائح للمساحات مصممة لتمنح الأناقة والرقي والانطباعات طويلة الأثر. صُممت مجموعتنا للأشخاص الذين يقدّرون الجودة والتهذيب والروائح الخالدة التي ترتقي بالتجارب اليومية.",
       cta: "تعرّف أكثر",
-      pageEyebrow: "عن دزاراتي للعطور",
+      pageEyebrow: "عن عطور دزارتي",
       pageTitle: "دار عطور فاخرة مقرها قطر، مصاغة بالأناقة والتهذيب.",
       pageText: "دزاراتي للعطور علامة عطرية فاخرة مقرها قطر، تقدم عطوراً راقية وروائح للمساحات مصممة لتمنح الأناقة والرقي والانطباعات طويلة الأثر. صُممت مجموعتنا للأشخاص الذين يقدّرون الجودة والتهذيب والروائح الخالدة التي ترتقي بالتجارب اليومية.",
       pillars: [
@@ -435,6 +475,46 @@ export const translations = {
     globalStatement: {
       eyebrow: "بيان الفخامة",
       title: "صُممت للاستثنائي.",
+    },
+    faqs: {
+      home: [
+        {
+          question: "أين يمكنني شراء عطور دزاراتي في قطر؟",
+          answer: "يمكنك شراء عطور دزاراتي عبر الإنترنت من موقعنا dezartiperfumes.com مع خدمة التوصيل في الدوحة وجميع أنحاء قطر، أو تواصل معنا عبر واتساب للحصول على استشارة خاصة."
+        },
+        {
+          question: "هل عطور دزاراتي تدوم طويلاً؟" ,
+          answer: "نعم، يتم تركيب عطور دزاراتي باستخدام زيوت عطرية فاخرة عالية التركيز لتضمن ثباتاً استثنائياً يدوم من 8 إلى 14 ساعة فما فوق، حسب العائلة العطرية."
+        },
+        {
+          question: "هل توفرون معطرات جو لأنظمة التكييف؟",
+          answer: "نعم، تتميز مجموعة معطرات التكييف والجو بروائح فاخرة مصممة للرش في الغرف أو التطبيق المباشر على فلاتر التكييف لنشر أجواء منعشة تشبه الفنادق."
+        }
+      ],
+      men: [
+        {
+          question: "ما هي أفضل العطور الرجالية التي تدوم طويلاً في قطر؟",
+          answer: "تقدم دزاراتي عطوراً رجالية فاخرة وثابتة مثل 'ريد توباكو' و'أيريش ليذر' بنفحات الأخشاب الداكنة، الجلود، والعنبر الفاخر."
+        }
+      ],
+      women: [
+        {
+          question: "ما هي أشهر العطور النسائية الفاخرة من دزاراتي؟",
+          answer: "تضم مجموعتنا النسائية عطوراً فاخرة مثل 'ليبر'، 'باكارات' و'غود غيرل' التي تجمع بين الزهور الناعمة، الفانيلا، والمسك الفخم لترك انطباع يدوم."
+        }
+      ],
+      unisex: [
+        {
+          question: "ما هي العطور للجنسين التي تنصحون بها؟",
+          answer: "تتميز مجموعتنا للجنسين بنفحات العنبر الدافئ، البخور، الشاي الأسود، والعود الفاخر، لتخلق روائح راقية تناسب الجميع وتتجاوز القواعد التقليدية."
+        }
+      ],
+      air: [
+        {
+          question: "كيف أستخدم معطرات الجو والتكييف من دزاراتي؟",
+          answer: "يمكن رش معطرات الجو الفاخرة مباشرة في الهواء أو تطبيقها على فلاتر التكييف لمنح المنازل، المكاتب، والفنادق هوية عطرية نقية ومصقولة."
+        }
+      ]
     },
     whatsapp: {
       generic: "مرحباً DEZARTI، أود الاستفسار عن العطور والخدمات.",
