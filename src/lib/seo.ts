@@ -6,7 +6,7 @@ const BASE_URL = "https://dezartiperfumes.com";
 
 export function getBaseMetadata(locale: string, path: string): Metadata {
   const siteName = locale === "ar" ? "عطور دزاراتي" : "Dezarti Perfumes";
-  
+
   let title = siteName;
   let description = "";
   let ogImage = "/campaign/dezarti-good-girl.png";
@@ -157,7 +157,7 @@ export function getProductMetadata(locale: string, product: Product): Metadata {
   const display = getProductDisplay(locale, product);
   const siteName = locale === "ar" ? "عطور دزاراتي" : "Dezarti Perfumes";
   const isAir = product.category === "air";
-  
+
   const title = locale === "ar"
     ? `${display.name} - ${isAir ? "معطر جو فاخر" : "عطر فاخر"} | ${siteName}`
     : `${display.name} - ${isAir ? "Luxury Air Freshener" : "Luxury Perfume"} | ${siteName}`;
@@ -271,7 +271,7 @@ export function getStructuredData(
       "image": `${BASE_URL}/campaign/dezarti-good-girl.png`,
       "url": BASE_URL,
       "telephone": "+97433667377",
-      "email": "dezaratiperfume@gmail.com",
+      "email": "dezartiperfume@gmail.com",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
@@ -303,7 +303,7 @@ export function getStructuredData(
 
   if (type === "breadcrumb") {
     const itemListElement = [];
-    
+
     // 1. Home
     itemListElement.push({
       "@type": "ListItem",
@@ -316,10 +316,10 @@ export function getStructuredData(
       const product: Product = data.product;
       const display = getProductDisplay(locale, product);
       const isAir = product.category === "air";
-      
+
       const categoryPath = isAir ? "/air-fragrances" : `/${product.category}`;
       const categoryName = display.collection;
-      
+
       // 2. Collection Category
       itemListElement.push({
         "@type": "ListItem",
@@ -338,7 +338,7 @@ export function getStructuredData(
     } else if (data?.path) {
       const path = data.path;
       let pageName = "";
-      
+
       if (path === "/about") {
         pageName = locale === "ar" ? "من نحن" : "About Us";
       } else if (path === "/contact") {
@@ -358,7 +358,7 @@ export function getStructuredData(
       } else if (path === "/best-sellers") {
         pageName = locale === "ar" ? "الأكثر طلباً" : "Best Sellers";
       }
-      
+
       if (pageName) {
         itemListElement.push({
           "@type": "ListItem",
@@ -427,11 +427,11 @@ export function getStructuredData(
       "description": data?.description || "Browse curated collections.",
       ...(itemListElement.length > 0
         ? {
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListElement": itemListElement,
-            },
-          }
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": itemListElement,
+          },
+        }
         : {}),
     };
   }

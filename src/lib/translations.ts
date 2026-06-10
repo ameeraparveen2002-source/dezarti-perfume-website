@@ -139,7 +139,7 @@ export const translations = {
       homeTitle: "A private consultation for scent and space.",
       homeText: "Contact DEZARTI for personal fragrance inquiries, wholesale requests, and ambient scenting.",
       service: "DEZARTI Private Service",
-      emailAddress: "dezaratiperfume@gmail.com",
+      emailAddress: "dezartiperfume@gmail.com",
       whatsappNumber: "97433667377",
       whatsappDisplay: "+974 33667377",
       emailLabel: "Email",
@@ -385,7 +385,7 @@ export const translations = {
       homeTitle: "استشارة خاصة لعطرك ومساحتك.",
       homeText: "تواصل مع فريق DEZARTI للاستفسارات الشخصية، طلبات الجملة، وتعطير المساحات.",
       service: "خدمة DEZARTI الخاصة",
-      emailAddress: "dezaratiperfume@gmail.com",
+      emailAddress: "dezartiperfume@gmail.com",
       whatsappNumber: "97433667377",
       whatsappDisplay: "+974 33667377",
       emailLabel: "البريد",
@@ -483,7 +483,7 @@ export const translations = {
           answer: "يمكنك شراء عطور دزاراتي عبر الإنترنت من موقعنا dezartiperfumes.com مع خدمة التوصيل في الدوحة وجميع أنحاء قطر، أو تواصل معنا عبر واتساب للحصول على استشارة خاصة."
         },
         {
-          question: "هل عطور دزاراتي تدوم طويلاً؟" ,
+          question: "هل عطور دزاراتي تدوم طويلاً؟",
           answer: "نعم، يتم تركيب عطور دزاراتي باستخدام زيوت عطرية فاخرة عالية التركيز لتضمن ثباتاً استثنائياً يدوم من 8 إلى 14 ساعة فما فوق، حسب العائلة العطرية."
         },
         {
@@ -578,7 +578,7 @@ function translateFamily(family: string, locale: SupportedLocale): string {
 function translateProductName(name: string, locale: SupportedLocale, fallbackArabic?: string): string {
   const match = name.match(/^(.*?)\s*(\d+)$/);
   const baseName = match ? match[1] : name;
-  
+
   const cleanBase = baseName.trim();
   const trans = nameTranslations[cleanBase];
   if (trans) {
@@ -649,7 +649,7 @@ export function getProductDisplay(locale: string, product: Product) {
   const price = product.category === "air" ? "50 QAR" : "150 QAR";
 
   const translatedName = translateProductName(product.name, activeLocale, product.arabicName);
-  
+
   // Translate notes
   const translatedNotes = {
     top: product.notes.top.map(n => translateNote(n, activeLocale)),

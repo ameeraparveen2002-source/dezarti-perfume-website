@@ -598,6 +598,16 @@ function Header({ locale }: PageProps) {
           </nav>
           <div className="flex items-center gap-2 sm:gap-3">
             <LanguageSwitcher locale={activeLocale} />
+            <a
+              href={`tel:+${dictionary.contact.whatsappNumber}`}
+              className="rounded-full border border-[#b58a54]/25 px-3 py-1.5 text-[0.58rem] sm:text-[0.66rem] uppercase tracking-[0.14em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] inline-flex items-center gap-1.5"
+              aria-label={activeLocale === "ar" ? "اتصل بنا الآن" : "Call us now"}
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.387a12.035 12.035 0 0 1-7.108-7.108c-.458-.44-.29-1.048.096-1.333l1.293-.97c.362-.272.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+              </svg>
+              <span>{activeLocale === "ar" ? "اتصل الآن" : "Call now"}</span>
+            </a>
             <Link href={withLocale(locale, "/contact")} prefetch className="hidden rounded-full border border-[#b58a54]/25 px-4 py-2 text-[0.65rem] uppercase tracking-[0.16em] text-[#1f1a17] transition duration-300 hover:border-[#b58a54] hover:bg-[#1f1a17] hover:text-[#fffdf9] md:inline-flex">
               {dictionary.contact.eyebrow}
             </Link>
@@ -759,20 +769,33 @@ function MobileMenuDrawer({ isOpen, onClose: _onClose, locale }: MobileMenuDrawe
               </a>
             </div>
             
-            <div className="grid gap-3 sm:grid-cols-2">
-              <Link
-                href={withLocale(locale, "/contact")}
-                className="w-full text-center luxury-button py-3 text-[0.62rem]"
-              >
-                {dictionary.contact.eyebrow}
-              </Link>
+            <div className="flex flex-col gap-3">
+              <div className="grid gap-3 grid-cols-2">
+                <Link
+                  href={withLocale(locale, "/contact")}
+                  className="w-full text-center luxury-button py-3 text-[0.62rem]"
+                >
+                  {dictionary.contact.eyebrow}
+                </Link>
+                <a
+                  href={whatsappLink(locale)}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full text-center luxury-button luxury-button-ghost py-3 text-[0.62rem]"
+                  aria-label={activeLocale === "ar" ? "استفسر عبر الواتساب" : "Inquire on WhatsApp"}
+                >
+                  {dictionary.product.inquire}
+                </a>
+              </div>
               <a
-                href={whatsappLink(locale)}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full text-center luxury-button luxury-button-ghost py-3 text-[0.62rem]"
+                href={`tel:+${dictionary.contact.whatsappNumber}`}
+                className="w-full text-center luxury-button luxury-button-collection py-3 text-[0.62rem] inline-flex items-center justify-center gap-1.5"
+                aria-label={activeLocale === "ar" ? "اتصل بنا الآن" : "Call us now"}
               >
-                {dictionary.product.inquire}
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.387a12.035 12.035 0 0 1-7.108-7.108c-.458-.44-.29-1.048.096-1.333l1.293-.97c.362-.272.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                </svg>
+                <span>{activeLocale === "ar" ? "اتصل الآن" : "Call now"}</span>
               </a>
             </div>
           </motion.div>
@@ -1376,6 +1399,9 @@ function Footer({ locale }: PageProps) {
             </div>
             <a href={`mailto:${dictionary.contact.emailAddress}`} className="block transition hover:text-[#1f1a17]">
               {dictionary.contact.emailLabel}: {dictionary.contact.emailAddress}
+            </a>
+            <a href={`tel:+${dictionary.contact.whatsappNumber}`} className="block transition hover:text-[#1f1a17]">
+              {activeLocale === "ar" ? "الهاتف: " : "Phone: "} {dictionary.contact.whatsappDisplay}
             </a>
             <a href={whatsappLink(locale)} target="_blank" rel="noreferrer" className="block transition hover:text-[#1f1a17]">
               {dictionary.contact.whatsappLabel}: {dictionary.contact.whatsappDisplay}
