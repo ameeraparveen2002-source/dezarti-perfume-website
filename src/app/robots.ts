@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/api/",
     },
-    sitemap: "https://dezarti.com/sitemap.xml",
+    sitemap: "https://dezartiperfumes.com/sitemap.xml",
   };
 }

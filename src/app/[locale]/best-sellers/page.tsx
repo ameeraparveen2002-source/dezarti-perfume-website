@@ -9,21 +9,22 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  return getBaseMetadata(locale, "/air-fragrances");
+  return getBaseMetadata(locale, "/best-sellers");
 }
 
-export default async function AirFragrancesPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function BestSellersPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const copy = getDictionary(locale).collectionPages.airFragrances;
-  
+  const copy = getDictionary(locale).homeSections[1]; // best-sellers copy
+  const pageTitle = locale === "ar" ? "الأكثر طلباً" : "Best Sellers";
+
   const collectionJsonLd = getStructuredData(locale, "collection", {
     name: copy.eyebrow,
-    path: "/air-fragrances",
+    path: "/best-sellers",
     description: copy.description,
   });
   
   const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", {
-    path: "/air-fragrances",
+    path: "/best-sellers",
   });
 
   return (
@@ -43,9 +44,9 @@ export default async function AirFragrancesPage({ params }: { params: Promise<{ 
       <CollectionPage
         locale={locale}
         eyebrow={copy.eyebrow}
-        title={copy.title}
+        title={pageTitle}
         description={copy.description}
-        filter="air"
+        filter="best"
       />
     </>
   );

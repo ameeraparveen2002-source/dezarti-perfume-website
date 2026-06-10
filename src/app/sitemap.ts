@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { products } from "@/lib/dezarti-data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://dezarti.com";
+  const baseUrl = "https://dezartiperfumes.com";
   const locales = ["en", "ar"];
   const routes = [
     "",

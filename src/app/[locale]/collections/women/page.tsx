@@ -20,6 +20,7 @@ export default async function CollectionWomenPage({ params }: { params: Promise<
     path: "/collections/women",
     description: copy.description,
   });
+  const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", { path: "/collections/women" });
 
   return (
     <>
@@ -27,6 +28,12 @@ export default async function CollectionWomenPage({ params }: { params: Promise<
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <CollectionPage

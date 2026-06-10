@@ -108,10 +108,11 @@ export function CollectionPage({
   title: string;
   eyebrow: string;
   description: string;
-  filter?: Product["category"] | "new";
+  filter?: Product["category"] | "new" | "best";
 }) {
   const items = useMemo(() => {
     if (filter === "new") return products.filter((product) => product.badge);
+    if (filter === "best") return [products[0], products[25], products[50], products[3]].filter(Boolean);
     if (filter) return products.filter((product) => product.category === filter);
     return products;
   }, [filter]);
@@ -154,7 +155,11 @@ export function ProductDetail({ locale, product }: PageProps & { product: Produc
               <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[20px] bg-[#faf6f0]">
                 <Image
                   src={heroImage}
-                  alt={display.name}
+                  alt={
+                    locale === "ar"
+                      ? `${display.name} ${product.category === "air" ? "معطر جو فاخر" : "عطر فاخر"} من عطور دزاراتي`
+                      : `${display.name} ${product.category === "air" ? "Air Freshener Fragrance" : "Luxury Perfume"} by Dezarti Perfumes`
+                  }
                   fill
                   priority
                   sizes="(min-width: 1280px) 720px, (min-width: 768px) 48vw, 100vw"
@@ -720,7 +725,7 @@ function Hero({ locale }: PageProps) {
         >
           <Image
             src="/campaign/dezarti-good-girl.png"
-            alt="DEZARTI campaign"
+            alt={locale === "ar" ? "حملة عروض عطور دزاراتي الفاخرة" : "Dezarti Perfumes Luxury Fragrance Campaign"}
             fill
             priority
             sizes="(min-width: 768px) 42vw, 100vw"
@@ -750,7 +755,11 @@ function AboutPreview({ locale }: PageProps) {
       <motion.div {...fadeUp} className="relative min-h-[280px] overflow-hidden rounded-[3px] border border-[#b58a54]/15 md:min-h-[390px] luxury-image-frame">
         <Image
           src="/campaign/about/dezarti-about-libre.png"
-          alt={dictionary.about.title}
+          alt={
+            locale === "ar"
+              ? "قصة دار عطور دزاراتي الفاخرة في قطر"
+              : "About Dezarti Perfumes - The Luxury Fragrance House in Qatar"
+          }
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
           className="object-cover"
@@ -980,7 +989,11 @@ function ProductCard({
         <div className={`relative overflow-hidden rounded-t-[3px] bg-[#fffdf9] luxury-image-frame ${imageHeight} shrink-0`}>
           <Image
             src={product.image}
-            alt={display.name}
+            alt={
+              locale === "ar"
+                ? `${display.name} ${isAir ? "معطر جو فاخر" : "عطر فاخر"} من عطور دزاراتي`
+                : `${display.name} ${isAir ? "Air Freshener Fragrance" : "Luxury Perfume"} by Dezarti Perfumes`
+            }
             fill
             loading="lazy"
             quality={80}

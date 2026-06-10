@@ -32,6 +32,7 @@ export default async function ProductPage({
   }
 
   const jsonLd = getStructuredData(locale, "product", { product });
+  const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", { product });
 
   return (
     <>
@@ -39,6 +40,12 @@ export default async function ProductPage({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <ProductDetail locale={locale} product={product} />

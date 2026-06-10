@@ -20,6 +20,7 @@ export default async function CollectionAcAmbientPage({ params }: { params: Prom
     path: "/collections/ac-ambient",
     description: copy.description,
   });
+  const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", { path: "/collections/ac-ambient" });
 
   return (
     <>
@@ -27,6 +28,12 @@ export default async function CollectionAcAmbientPage({ params }: { params: Prom
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <CollectionPage

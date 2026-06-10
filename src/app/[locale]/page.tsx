@@ -13,14 +13,28 @@ export async function generateMetadata({
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const jsonLd = getStructuredData(locale, "website");
+  const websiteJsonLd = getStructuredData(locale, "website");
+  const organizationJsonLd = getStructuredData(locale, "organization");
+  const localBusinessJsonLd = getStructuredData(locale, "localbusiness");
 
   return (
     <>
-      {jsonLd && (
+      {websiteJsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      )}
+      {organizationJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+      )}
+      {localBusinessJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
       )}
       <LuxuryHome locale={locale} />

@@ -20,6 +20,7 @@ export default async function CollectionUnisexPage({ params }: { params: Promise
     path: "/collections/unisex",
     description: copy.description,
   });
+  const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", { path: "/collections/unisex" });
 
   return (
     <>
@@ -27,6 +28,12 @@ export default async function CollectionUnisexPage({ params }: { params: Promise
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <CollectionPage

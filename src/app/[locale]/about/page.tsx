@@ -14,6 +14,7 @@ export async function generateMetadata({
 export default async function About({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const jsonLd = getStructuredData(locale, "about");
+  const breadcrumbJsonLd = getStructuredData(locale, "breadcrumb", { path: "/about" });
 
   return (
     <>
@@ -21,6 +22,12 @@ export default async function About({ params }: { params: Promise<{ locale: stri
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      {breadcrumbJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
       )}
       <AboutPage locale={locale} />
