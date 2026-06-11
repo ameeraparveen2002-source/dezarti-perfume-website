@@ -152,7 +152,7 @@ export const translations = {
       mapUrl: "https://maps.app.goo.gl/stRwxdLfWs5uyrqs5",
       mapEmbedUrl: "https://maps.google.com/maps?q=Building%20Number%2017%2C%2041%20Betteel%20Street%2C%20Doha%2C%20Qatar&output=embed",
       businessHoursLabel: "Business Hours",
-      businessHours: "Daily, 10 AM - 8 PM",
+      businessHours: "Saturday – Thursday:\n11:00 AM – 10:00 PM\n\nFriday:\n4:00 PM – 10:00 PM",
       form: {
         name: "Full name",
         email: "Email address",
@@ -398,7 +398,7 @@ export const translations = {
       mapUrl: "https://maps.app.goo.gl/stRwxdLfWs5uyrqs5",
       mapEmbedUrl: "https://maps.google.com/maps?q=Building%20Number%2017%2C%2041%20Betteel%20Street%2C%20Doha%2C%20Qatar&output=embed",
       businessHoursLabel: "ساعات العمل",
-      businessHours: "يومياً، 10 صباحاً - 8 مساءً",
+      businessHours: "السبت – الخميس:\n11:00 صباحاً – 10:00 مساءً\n\nالجمعة:\n4:00 مساءً – 10:00 مساءً",
       form: {
         name: "الاسم الكامل",
         email: "البريد الإلكتروني",

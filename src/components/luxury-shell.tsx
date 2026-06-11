@@ -1324,7 +1324,7 @@ function HomeContactSection({ locale }: PageProps) {
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.phoneLabel}</span>
               {dictionary.contact.whatsappDisplay}
             </a>
-            <div className="border-t border-[#b58a54]/15 pt-4">
+            <div className="border-t border-[#b58a54]/15 pt-4 whitespace-pre-line">
               <span className="block text-[0.64rem] uppercase tracking-[0.16em] text-gold">{dictionary.contact.businessHoursLabel}</span>
               {dictionary.contact.businessHours}
             </div>
